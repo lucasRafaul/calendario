@@ -1,86 +1,65 @@
 import React, { useState } from 'react';
-import { Button, Container } from '@mui/material';
-import CalendarModal from './components/CalendarModal';
-import HorarioForm from './components/HorarioForm';
-import FormModal from './components/FormModal'
+import { Button, Container, Card, CardContent, Typography, MenuItem, Select, FormControl } from '@mui/material';
+import EducacionForm from './components/EducacionForm';
 import './App.css';
 
 function App() {
-  const [calendarOpen, setCalendarOpen] = useState(false);
-  const [horarioFormOpen, setHorarioFormOpen] = useState(false);
-  const [formModalOpen, setFormModalOpen] = useState(false);
-  const [selectedDate, setSelectedDate] = useState(null);
-  const [selectedHorario, setSelectedHorario] = useState(null)
-  const [currentForm, setCurrentForm] = useState(null);
+  const [formType, setFormType] = useState(null);
+  const [comunidadOption, setComunidadOption] = useState('');
 
-  const handleCalendarOpen = (form) => {
-    setCurrentForm(form);
-    setCalendarOpen(true);
+  const handleEducacionClick = () => {
+    setFormType('educacion');
   };
 
-  const handleCalendarClose = () => setCalendarOpen(false);
-
-  const handleDateClick = (date) => {
-    setSelectedDate(date);
-    setCalendarOpen(false);
-    setHorarioFormOpen(true);
+  const handleComunidadChange = (event) => {
+    setComunidadOption(event.target.value);
+    setFormType(event.target.value);
   };
-
-  const handleHorarioFormClose = () => setHorarioFormOpen(false);
-
-  const handleTimeSlotConfirm = (slot, time) => {
-    const selectedHorario = `${slot === 'mañana' ? 'Mañana' : 'Tarde'} - ${time}`;
-    setSelectedHorario(selectedHorario);
-    setHorarioFormOpen(false);
-    if (currentForm === 'institucion') {
-      // handle opening institution form here, if needed
-      setFormModalOpen(true)
-    } else if (currentForm === 'particular') {
-      // handle opening particular form here, if needed
-    }
-    alert('Horario Confirmado'); // This is just a placeholder
-  };
-
-  const handleFormModalClose = () => setFormModalOpen(false);
 
   return (
-    <Container className='AppDiv'>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => handleCalendarOpen('institucion')}
-      >
-        Inscripción Instituciones
-      </Button>
-      <Button
-        variant="contained"
-        color="secondary"
-        onClick={() => handleCalendarOpen('particular')}
-        style={{ marginLeft: '10px' }}
-      >
-        Inscripción Particulares
-      </Button>
-      <CalendarModal
-        open={calendarOpen}
-        onClose={handleCalendarClose}
-        onDateClick={handleDateClick}
-      />
-      <HorarioForm
-        open={horarioFormOpen}
-        onClose={handleHorarioFormClose}
-        selectedDate={selectedDate}
-        onConfirm={handleTimeSlotConfirm}
-      />
-      <FormModal
-      open={formModalOpen}
-      onClose={handleFormModalClose}
-      selectedDate={selectedDate}
-      selectedHorario={selectedHorario}
-      />
+    <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <Card style={{ padding: '20px', textAlign: 'center', maxWidth: '400px', width: '100%' }}>
+        <CardContent>
+          <Typography variant="h5" component="div" gutterBottom>
+            Seleccione una opción
+          </Typography>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={handleEducacionClick}
+            fullWidth
+            style={{ marginBottom: '10px' }}
+          >
+            Educación
+          </Button>
+          <FormControl fullWidth>
+            <Select
+              value={comunidadOption}
+              displayEmpty
+              onChange={handleComunidadChange}
+              renderValue={(selected) => {
+                if (selected.length === 0) {
+                  return <em>Comunidad</em>;
+                }
+                return selected;
+              }}
+            >
+              <MenuItem value="" disabled>
+                Comunidad
+              </MenuItem>
+              <MenuItem value="tallerProfesor">Taller Profesor</MenuItem>
+              <MenuItem value="tallerParticulares">Taller Particulares</MenuItem>
+            </Select>
+          </FormControl>
+          {formType === 'educacion' && <EducacionForm />}
+        </CardContent>
+      </Card>
     </Container>
   );
 }
 
 export default App;
+
+
 
 
