@@ -6,14 +6,17 @@ import './App.css';
 function App() {
   const [formType, setFormType] = useState(null);
   const [comunidadOption, setComunidadOption] = useState('');
+  const [calendarOpen, setCalendarOpen] = useState(false);
 
   const handleEducacionClick = () => {
     setFormType('educacion');
+    setComunidadOption('');
   };
 
   const handleComunidadChange = (event) => {
-    setComunidadOption(event.target.value);
-    setFormType(event.target.value);
+    const selectedValue = event.target.value;
+    setComunidadOption(selectedValue);
+    setFormType(selectedValue);
   };
 
   return (
@@ -52,6 +55,11 @@ function App() {
             </Select>
           </FormControl>
           {formType === 'educacion' && <EducacionForm />}
+          {(formType === 'tallerProfesor' || formType === 'tallerParticulares') && (
+            <Typography variant="h4" align="center">
+              Próximamente
+            </Typography>
+          )}
         </CardContent>
       </Card>
     </Container>
@@ -59,7 +67,5 @@ function App() {
 }
 
 export default App;
-
-
 
 
