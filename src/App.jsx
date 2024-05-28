@@ -6,7 +6,7 @@ import './App.css';
 function App() {
   const [formType, setFormType] = useState(null);
   const [comunidadOption, setComunidadOption] = useState('');
-  const [calendarOpen, setCalendarOpen] = useState(false);
+  //const [calendarOpen, setCalendarOpen] = useState(false);
 
   const handleEducacionClick = () => {
     setFormType('educacion');
@@ -24,7 +24,7 @@ function App() {
       <Card style={{ padding: '20px', textAlign: 'center', maxWidth: '400px', width: '100%' }}>
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom>
-            Seleccione una opción
+            Formulario de Inscripción
           </Typography>
           <Button
             variant="contained"
@@ -50,12 +50,12 @@ function App() {
               <MenuItem value="" disabled>
                 Comunidad
               </MenuItem>
-              <MenuItem value="tallerProfesor">Taller Profesor</MenuItem>
+              <MenuItem value="tallerDocente">Taller Docentes</MenuItem>
               <MenuItem value="tallerParticulares">Taller Particulares</MenuItem>
             </Select>
           </FormControl>
           {formType === 'educacion' && <EducacionForm />}
-          {(formType === 'tallerProfesor' || formType === 'tallerParticulares') && (
+          {(formType === 'tallerDocente' || formType === 'tallerParticulares') && (
             <Typography variant="h4" align="center">
               Próximamente
             </Typography>

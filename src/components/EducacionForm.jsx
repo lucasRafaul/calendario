@@ -137,7 +137,7 @@ const EducacionForm = () => {
       />
       <FormControlLabel
         control={<Checkbox checked={formData.prometo} onChange={handleCheckboxChange} />}
-        label="Juro comportarme y mantener el lugar y las computadoras limpias y seguras durante nuestra visita."
+        label="Prometo comportarme y mantener el lugar y las computadoras limpias y seguras durante nuestra visita."
       />
       <Button variant="contained" color="primary" type="submit">
         Enviar
