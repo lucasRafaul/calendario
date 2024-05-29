@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, FormControlLabel, Checkbox } from '@mui/material';
+import CalendarDate from './CalendarDate';
 
 const EducacionForm = () => {
   const [formData, setFormData] = useState({
@@ -12,8 +13,11 @@ const EducacionForm = () => {
     cantAlumnos: '',
     telefono: '',
     email: '',
-    prometo: false // New state for the checkbox
+    prometo: false,
+    fechaVisita: '' // Changed to string for manual input
   });
+
+  const [calendarOpen, setCalendarOpen] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -31,22 +35,29 @@ const EducacionForm = () => {
     });
   };
 
+  const handleDateChange = (date) => {
+    const formattedDate = date.toLocaleDateString('es-ES'); // Format date as dd/mm/yyyy
+    setFormData({
+      ...formData,
+      fechaVisita: formattedDate
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setFormData({
-    cue: '',
-    nombreEscuela: '',
-    localidadEscuela: '',
-    nombreDirector: '',
-    grado: '',
-    turno: '',
-    cantAlumnos: '',
-    telefono: '',
-    email: '',
-    prometo: false // New state for the checkbox
-    })
-    // Here, you would typically send the data to the server
-    // For now, let's just log the form data
+      cue: '',
+      nombreEscuela: '',
+      localidadEscuela: '',
+      nombreDirector: '',
+      grado: '',
+      turno: '',
+      cantAlumnos: '',
+      telefono: '',
+      email: '',
+      prometo: false,
+      fechaVisita: ''
+    });
     console.log(formData);
   };
 
@@ -135,6 +146,16 @@ const EducacionForm = () => {
         value={formData.email}
         onChange={handleChange}
       />
+      <TextField
+        label="Fecha de la Visita"
+        variant="outlined"
+        fullWidth
+        name="fechaVisita"
+        placeholder="dd/mm/yyyy"
+        value={formData.fechaVisita}
+        onChange={handleChange}
+        onClick={() => setCalendarOpen(true)}
+      />
       <FormControlLabel
         control={<Checkbox checked={formData.prometo} onChange={handleCheckboxChange} />}
         label="Prometo comportarme y mantener el lugar y las computadoras limpias y seguras durante nuestra visita."
@@ -142,10 +163,17 @@ const EducacionForm = () => {
       <Button variant="contained" color="primary" type="submit">
         Enviar
       </Button>
+      <CalendarDate
+        open={calendarOpen}
+        onClose={() => setCalendarOpen(false)}
+        onDateClick={handleDateChange}
+      />
     </Box>
   );
 };
 
 export default EducacionForm;
+
+
 
 

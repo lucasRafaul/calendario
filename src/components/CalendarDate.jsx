@@ -4,7 +4,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { es } from 'date-fns/locale';
 
-const CalendarModal = ({ open, onClose, onDateClick }) => {
+const CalendarDate = ({ open, onClose, onDateClick }) => {
   const handleDateClick = (date) => {
     onDateClick(date);
     onClose();
@@ -27,4 +27,4 @@ const CalendarModal = ({ open, onClose, onDateClick }) => {
   );
 };
 
-export default CalendarModal;
+export default CalendarDate;

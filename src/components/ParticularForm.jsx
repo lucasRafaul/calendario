@@ -3,7 +3,7 @@ import { Dialog, DialogTitle, DialogContent, TextField, Button, Box } from '@mui
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
-const ParticularFormModal = ({ open, onClose, selectedDate }) => {
+const ParticularForm = ({ open, onClose}) => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -45,13 +45,6 @@ const ParticularFormModal = ({ open, onClose, selectedDate }) => {
       <DialogTitle>Formulario de Inscripción Particular</DialogTitle>
       <DialogContent>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <TextField  
-            label="Fecha Seleccionada"
-            value={selectedDate ? format(selectedDate, 'PPPP', { locale: es }) : ''} 
-            fullWidth
-            margin="normal"
-            disabled
-          />
           <TextField
             label="Nombre"
             name="name"
@@ -80,4 +73,4 @@ const ParticularFormModal = ({ open, onClose, selectedDate }) => {
   );
 };
 
-export default ParticularFormModal;
+export default ParticularForm;

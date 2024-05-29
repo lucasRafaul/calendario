@@ -50,12 +50,12 @@ function App() {
               <MenuItem value="" disabled>
                 Comunidad
               </MenuItem>
-              <MenuItem value="tallerDocente">Taller Docentes</MenuItem>
-              <MenuItem value="tallerParticulares">Taller Particulares</MenuItem>
+              <MenuItem value="taller Docente">Taller Docentes</MenuItem>
+              <MenuItem value="taller Particulares">Taller Particulares</MenuItem>
             </Select>
           </FormControl>
           {formType === 'educacion' && <EducacionForm />}
-          {(formType === 'tallerDocente' || formType === 'tallerParticulares') && (
+          {(formType === 'taller Docente' || formType === 'taller Particulares') && (
             <Typography variant="h4" align="center">
               Próximamente
             </Typography>
