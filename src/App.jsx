@@ -6,19 +6,16 @@ import './App.css';
 function App() {
   const [formType, setFormType] = useState(null);
   const [comunidadOption, setComunidadOption] = useState('');
-  const [isFormVisible, setIsFormVisible] = useState(false);
 
-  const handleEducacionClick = () => {
+  const handleEducacionClick = () => { {/* abre el formulario educativo */}
     setFormType('educacion');
     setComunidadOption('');
-    setIsFormVisible(true);
   };
 
-  const handleComunidadChange = (event) => {
+  const handleComunidadChange = (event) => { {/* detecto los cambios de opcion en select de abierto a la comunidad */}
     const selectedValue = event.target.value;
     setComunidadOption(selectedValue);
     setFormType(selectedValue);
-    setIsFormVisible(selectedValue !== '');
   };
 
   return (
@@ -38,13 +35,13 @@ function App() {
             Visitas Escuelas
           </Button>
           <FormControl fullWidth>
-            <Select
+            <Select 
               value={comunidadOption}
               displayEmpty
               onChange={handleComunidadChange}
               renderValue={(selected) => {
-                if (selected.length === 0) {
-                  return <em>Abierto a la Comunidad</em>;
+                if (selected.length === 0) { 
+                  return <em>Abierto a la Comunidad</em>; {/* se muestra abierto a la comunidad en el select si no se selecciono una opcion */}
                 }
                 return selected;
               }}
@@ -56,12 +53,12 @@ function App() {
               <MenuItem value="taller Particulares">Taller Particulares</MenuItem>
             </Select>
           </FormControl>
-          {formType === 'educacion' && <EducacionForm />}
+          {formType === 'educacion' && <EducacionForm />} {/* si el tipoFormulario es educación se muestra el FormularioEducacion */}
           {(formType === 'taller Docente' || formType === 'taller Particulares') && (
             <Typography variant="h4" align="center" style={{ marginTop:'50px' }}>
               Próximamente
             </Typography>
-          )}
+          )} {/* si el tipoFormulario es taller Docente o taller Particulares se muestra el mensaje próximamente */}
         </CardContent>
       </Card>
     </Container>

@@ -1,9 +1,9 @@
+//formulario para instituciones educativas
 import React, { useState } from 'react';
 import { TextField, Button, Box, FormControlLabel, Checkbox } from '@mui/material';
 import CalendarDate from './CalendarDate';
-import  './EducacionForm.css'
 
-const EducacionForm = () => {
+const EducacionForm = () => { //función que guarda todos los datos que le pedimos al usuario en datosFormulario
   const [formData, setFormData] = useState({
     cue: '',
     nombreEscuela: '',
@@ -15,7 +15,7 @@ const EducacionForm = () => {
     telefono: '',
     email: '',
     prometo: false,
-    fechaVisita: '' // Changed to string for manual input
+    fechaVisita: '' // string para entrada manual
   });
 
   const [calendarOpen, setCalendarOpen] = useState(false);
@@ -28,7 +28,7 @@ const EducacionForm = () => {
     });
   };
 
-  const handleCheckboxChange = (e) => {
+  const handleCheckboxChange = (e) => { //detecta en datosFormulario si el check de prometo fue activado o no
     const { checked } = e.target;
     setFormData({
       ...formData,
@@ -37,14 +37,14 @@ const EducacionForm = () => {
   };
 
   const handleDateChange = (date) => {
-    const formattedDate = date.toLocaleDateString('es-ES'); // Format date as dd/mm/yyyy
+    const formattedDate = date.toLocaleDateString('es-ES'); // el formato de la fecha se cambia  a dd/mm/yyyy
     setFormData({
       ...formData,
       fechaVisita: formattedDate
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e) => { //al apretar el botón enviar esta función resetea todos los inputs y muestra datosFormulario en la consola
     e.preventDefault();
     setFormData({
       cue: '',
