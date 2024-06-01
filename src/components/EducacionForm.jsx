@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, FormControlLabel, Checkbox } from '@mui/material';
 import CalendarDate from './CalendarDate';
+import  './EducacionForm.css'
 
 const EducacionForm = () => {
   const [formData, setFormData] = useState({
@@ -62,19 +63,13 @@ const EducacionForm = () => {
   };
 
   return (
-    <Box
+    <Box 
       component="form"
-      sx={{
-        '& .MuiTextField-root': { marginBottom: 2 },
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center'
-      }}
       noValidate
       autoComplete="off"
       onSubmit={handleSubmit}
     >
-      <TextField
+      <TextField style={{marginBottom:'7px', marginTop:'5px' }}
         label="CUE"
         variant="outlined"
         fullWidth
@@ -82,7 +77,7 @@ const EducacionForm = () => {
         value={formData.cue}
         onChange={handleChange}
       />
-      <TextField
+      <TextField style={{marginBottom:'7px'}}
         label="Nombre de la Escuela"
         variant="outlined"
         fullWidth
@@ -90,7 +85,7 @@ const EducacionForm = () => {
         value={formData.nombreEscuela}
         onChange={handleChange}
       />
-      <TextField
+      <TextField style={{marginBottom:'7px'}}
         label="Localidad de la Escuela"
         variant="outlined"
         fullWidth
@@ -98,7 +93,7 @@ const EducacionForm = () => {
         value={formData.localidadEscuela}
         onChange={handleChange}
       />
-      <TextField
+      <TextField style={{marginBottom:'7px'}}
         label="Nombre del Director"
         variant="outlined"
         fullWidth
@@ -106,7 +101,7 @@ const EducacionForm = () => {
         value={formData.nombreDirector}
         onChange={handleChange}
       />
-      <TextField
+      <TextField style={{marginBottom:'7px'}}
         label="Grado"
         variant="outlined"
         fullWidth
@@ -114,7 +109,7 @@ const EducacionForm = () => {
         value={formData.grado}
         onChange={handleChange}
       />
-      <TextField
+      <TextField style={{marginBottom:'7px'}}
         label="Turno"
         variant="outlined"
         fullWidth
@@ -122,7 +117,7 @@ const EducacionForm = () => {
         value={formData.turno}
         onChange={handleChange}
       />
-      <TextField
+      <TextField style={{marginBottom:'7px'}}
         label="Cantidad de Alumnos"
         variant="outlined"
         fullWidth
@@ -130,7 +125,7 @@ const EducacionForm = () => {
         value={formData.cantAlumnos}
         onChange={handleChange}
       />
-      <TextField
+      <TextField style={{marginBottom:'7px'}}
         label="Teléfono"
         variant="outlined"
         fullWidth
@@ -138,7 +133,7 @@ const EducacionForm = () => {
         value={formData.telefono}
         onChange={handleChange}
       />
-      <TextField
+      <TextField style={{marginBottom:'7px'}}
         label="Email"
         variant="outlined"
         fullWidth
@@ -146,7 +141,7 @@ const EducacionForm = () => {
         value={formData.email}
         onChange={handleChange}
       />
-      <TextField
+      <TextField style={{marginBottom:'7px'}}
         label="Fecha de la Visita"
         variant="outlined"
         fullWidth
@@ -156,7 +151,7 @@ const EducacionForm = () => {
         onChange={handleChange}
         onClick={() => setCalendarOpen(true)}
       />
-      <FormControlLabel
+      <FormControlLabel 
         control={<Checkbox checked={formData.prometo} onChange={handleCheckboxChange} />}
         label="Prometo comportarme y mantener el lugar y las computadoras limpias y seguras durante nuestra visita."
       />

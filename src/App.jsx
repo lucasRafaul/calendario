@@ -23,7 +23,7 @@ function App() {
 
   return (
     <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <Card style={{ padding: '20px', textAlign: 'center', marginTop: formType == 'taller Docente' || formType =='taller Particulares'? '0px':'350px'}}>
+      <Card style={{ padding: '20px', textAlign: 'center', marginTop: formType == 'taller Docente' || formType =='taller Particulares'? '0px':'100px'}}>
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom>
             Formulario de Inscripción
