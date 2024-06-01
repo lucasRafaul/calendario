@@ -35,7 +35,7 @@ function App() {
             fullWidth
             style={{ marginBottom: '10px' }}
           >
-            Educación
+            Visitas Escuelas
           </Button>
           <FormControl fullWidth>
             <Select
