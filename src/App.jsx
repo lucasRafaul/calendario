@@ -23,7 +23,7 @@ function App() {
 
   return (
     <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <Card style={{ padding: '20px', textAlign: 'center', maxWidth: isFormVisible ? '1000px' : '400px', width: '100%', transition: 'max-width 0.3s ease-in-out' }}>
+      <Card style={{ padding: '20px', textAlign: 'center', marginTop: formType == 'taller Docente' || formType =='taller Particulares'? '0px':'350px'}}>
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom>
             Formulario de Inscripción
@@ -44,13 +44,13 @@ function App() {
               onChange={handleComunidadChange}
               renderValue={(selected) => {
                 if (selected.length === 0) {
-                  return <em>Comunidad</em>;
+                  return <em>Abierto a la Comunidad</em>;
                 }
                 return selected;
               }}
             >
-              <MenuItem value="" disabled>
-                Comunidad
+              <MenuItem value="" disabled >
+                Abierto a la Comunidad
               </MenuItem>
               <MenuItem value="taller Docente">Taller Docentes</MenuItem>
               <MenuItem value="taller Particulares">Taller Particulares</MenuItem>
