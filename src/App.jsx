@@ -6,22 +6,24 @@ import './App.css';
 function App() {
   const [formType, setFormType] = useState(null);
   const [comunidadOption, setComunidadOption] = useState('');
-  //const [calendarOpen, setCalendarOpen] = useState(false);
+  const [isFormVisible, setIsFormVisible] = useState(false);
 
   const handleEducacionClick = () => {
     setFormType('educacion');
     setComunidadOption('');
+    setIsFormVisible(true);
   };
 
   const handleComunidadChange = (event) => {
     const selectedValue = event.target.value;
     setComunidadOption(selectedValue);
     setFormType(selectedValue);
+    setIsFormVisible(selectedValue !== '');
   };
 
   return (
     <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <Card style={{ padding: '20px', textAlign: 'center', maxWidth: '400px', width: '100%' }}>
+      <Card style={{ padding: '20px', textAlign: 'center', maxWidth: isFormVisible ? '1000px' : '400px', width: '100%', transition: 'max-width 0.3s ease-in-out' }}>
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom>
             Formulario de Inscripción
@@ -56,7 +58,7 @@ function App() {
           </FormControl>
           {formType === 'educacion' && <EducacionForm />}
           {(formType === 'taller Docente' || formType === 'taller Particulares') && (
-            <Typography variant="h4" align="center">
+            <Typography variant="h4" align="center" style={{ marginTop:'50px' }}>
               Próximamente
             </Typography>
           )}
@@ -67,5 +69,6 @@ function App() {
 }
 
 export default App;
+
 
 
