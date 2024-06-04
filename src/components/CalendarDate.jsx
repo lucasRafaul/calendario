@@ -11,7 +11,6 @@ const CalendarDate = ({ open, onClose, onDateClick }) => {
   };
   const tileDisabled = ({ date, view }) => {
     if (view === 'month') {
-      // Disable dates before today
       return date < new Date().setHours(0, 0, 0, 0);
     }
     return false;

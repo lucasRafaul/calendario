@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Container, Card, CardContent, Typography, MenuItem, Select, FormControl } from '@mui/material';
 import EducacionForm from './components/EducacionForm';
-import './App.css';
+import ParticularForm from './components/ParticularForm';
+import DocenteForm from './components/DocenteForm'
 
 function App() {
   const [formType, setFormType] = useState(null);
@@ -52,12 +53,13 @@ function App() {
               <MenuItem value="" disabled >
                 Abierto a la Comunidad
               </MenuItem>
-              <MenuItem value="taller Docente">Taller Docentes</MenuItem>
-              <MenuItem value="taller Particulares">Taller Particulares</MenuItem>
+              <MenuItem value="tallerDocente">Taller Docentes</MenuItem>
+              <MenuItem value="tallerParticulares">Taller Particulares</MenuItem>
             </Select>
           </FormControl>
           {formType === 'educacion' && <EducacionForm />}
-          {(formType === 'taller Docente' || formType === 'taller Particulares') && (
+          {formType === 'tallerDocente' && < DocenteForm />}
+          {( formType === 'tallerParticulares') && (
             <Typography variant="h4" align="center" style={{ marginTop:'50px' }}>
               Próximamente
             </Typography>

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, FormControlLabel, Checkbox } from '@mui/material';
 import CalendarDate from './CalendarDate';
-import  './EducacionForm.css'
 
 const EducacionForm = () => {
   const [formData, setFormData] = useState({
@@ -15,7 +14,8 @@ const EducacionForm = () => {
     telefono: '',
     email: '',
     prometo: false,
-    fechaVisita: '' // Changed to string for manual input
+    fechaVisita: '',
+    horario:'', // Changed to string for manual input
   });
 
   const [calendarOpen, setCalendarOpen] = useState(false);
@@ -37,7 +37,7 @@ const EducacionForm = () => {
   };
 
   const handleDateChange = (date) => {
-    const formattedDate = date.toLocaleDateString('es-ES'); // Format date as dd/mm/yyyy
+    const formattedDate = date.toLocaleDateString('es-ES'); 
     setFormData({
       ...formData,
       fechaVisita: formattedDate
