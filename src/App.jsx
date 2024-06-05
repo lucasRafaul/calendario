@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, Container, Card, CardContent, Typography, MenuItem, Select, FormControl } from '@mui/material';
 import EducacionForm from './components/EducacionForm';
-import './App.css';
+import ParticularForm from './components/ParticularForm';
+import DocenteForm from './components/DocenteForm'
 
 function App() {
   const [formType, setFormType] = useState(null);
   const [comunidadOption, setComunidadOption] = useState('');
+  const [isFormVisible, setIsFormVisible] = useState(false);
 
-  const handleEducacionClick = () => { {/* abre el formulario educativo */}
+  const handleEducacionClick = () => {
     setFormType('educacion');
     setComunidadOption('');
+    setIsFormVisible(true);
   };
 
-  const handleComunidadChange = (event) => { {/* detecto los cambios de opcion en select de abierto a la comunidad */}
+  const handleComunidadChange = (event) => {
     const selectedValue = event.target.value;
     setComunidadOption(selectedValue);
     setFormType(selectedValue);
+    setIsFormVisible(selectedValue !== '');
   };
 
   return (
@@ -35,13 +39,13 @@ function App() {
             Visitas Escuelas
           </Button>
           <FormControl fullWidth>
-            <Select 
+            <Select
               value={comunidadOption}
               displayEmpty
               onChange={handleComunidadChange}
               renderValue={(selected) => {
-                if (selected.length === 0) { 
-                  return <em>Abierto a la Comunidad</em>; {/* se muestra abierto a la comunidad en el select si no se selecciono una opcion */}
+                if (selected.length === 0) {
+                  return <em>Abierto a la Comunidad</em>;
                 }
                 return selected;
               }}
@@ -50,15 +54,16 @@ function App() {
                 Abierto a la Comunidad
               </MenuItem>
               <MenuItem value="taller Docente">Taller Docentes</MenuItem>
-              <MenuItem value="taller Particulares">Taller Particulares</MenuItem>
+              <MenuItem value="taller Comunidad">Taller Comunidad</MenuItem>
             </Select>
           </FormControl>
-          {formType === 'educacion' && <EducacionForm />} {/* si el tipoFormulario es educación se muestra el FormularioEducacion */}
-          {(formType === 'taller Docente' || formType === 'taller Particulares') && (
+          {formType === 'educacion' && <EducacionForm />}
+          {formType === 'taller Docente' && < DocenteForm />}
+          {( formType === 'taller Comunidad') && (
             <Typography variant="h4" align="center" style={{ marginTop:'50px' }}>
               Próximamente
             </Typography>
-          )} {/* si el tipoFormulario es taller Docente o taller Particulares se muestra el mensaje próximamente */}
+          )}
         </CardContent>
       </Card>
     </Container>
@@ -66,6 +71,5 @@ function App() {
 }
 
 export default App;
-
 
 

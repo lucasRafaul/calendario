@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Dialog, DialogTitle, DialogContent, TextField, Button, Box } from '@mui/material';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
 
 const ParticularForm = ({ open, onClose}) => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    nombreApellido: 'lucas',
+    edad: '',
+    anioNacimiento: '',
+    nombreApellidoTutor: '',
+    telefono: '',
+    email:'',
+
   });
 
   useEffect(() => {
@@ -47,7 +52,7 @@ const ParticularForm = ({ open, onClose}) => {
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <TextField
             label="Nombre"
-            name="name"
+            name="nonbreApellido"
             value={formData.name}
             onChange={handleChange}
             required
