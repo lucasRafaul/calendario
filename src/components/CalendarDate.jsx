@@ -14,6 +14,10 @@ const CalendarDate = ({ open, onClose, onDateClick, onHorarioChange }) => {
         setHorarioOpen(true);
     };
 
+    const handleHorarioClose = () => {
+        setHorarioOpen(false);
+    };
+
     const tileDisabled = ({ date, view }) => {
         if (view === 'month') {
             return date < new Date().setHours(0, 0, 0, 0);
@@ -29,10 +33,9 @@ const CalendarDate = ({ open, onClose, onDateClick, onHorarioChange }) => {
                     <Calendar onClickDay={handleDateClick} locale='es' tileDisabled={tileDisabled} />
                 </DialogContent>
             </Dialog>
-            {horarioOpen && <Horario onHorarioChange={onHorarioChange} />}
+            <Horario open={horarioOpen} onClose={handleHorarioClose} onHorarioChange={onHorarioChange} />
         </div>
     );
 };
 
 export default CalendarDate;
-

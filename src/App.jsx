@@ -2,24 +2,20 @@ import React, { useState, useContext } from 'react';
 import { Button, Container, Card, CardContent, Typography, MenuItem, Select, FormControl } from '@mui/material';
 import EducacionForm from './components/EducacionForm';
 import ParticularForm from './components/ParticularForm';
-import DocenteForm from './components/DocenteForm'
+import DocenteForm from './components/DocenteForm';
 
 function App() {
   const [formType, setFormType] = useState(null);
   const [comunidadOption, setComunidadOption] = useState('');
-  const [isFormVisible, setIsFormVisible] = useState(false);
 
   const handleEducacionClick = () => {
     setFormType('educacion');
     setComunidadOption('');
-    setIsFormVisible(true);
   };
 
   const handleComunidadChange = (event) => {
     const selectedValue = event.target.value;
     setComunidadOption(selectedValue);
-    setFormType(selectedValue);
-    setIsFormVisible(selectedValue !== '');
   };
 
   return (

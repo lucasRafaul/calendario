@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, FormControlLabel, Checkbox } from '@mui/material';
 import CalendarDate from './CalendarDate';
+import axios from 'axios';
 
 const EducacionForm = () => {
     const [formData, setFormData] = useState({
@@ -53,6 +54,17 @@ const EducacionForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
+        axios.post('/api/turno_instituto/agregar',{
+            formData
+        })
+        .then(function (response) {
+            response.estado == 'okay' ? alert('se grabo correctamente') :  alert('error al grabar')
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
         setFormData({
             cue: '',
             nombreEscuela: '',
@@ -73,9 +85,10 @@ const EducacionForm = () => {
     return (
         <Box 
             component="form"
-            noValidate
-            autoComplete="off"
+            autoComplete="on"
             onSubmit={handleSubmit}
+            action='/turno_instituto'
+            method='POST'
         >
             <TextField style={{marginBottom:'7px', marginTop:'5px' }}
                 label="CUE"
@@ -84,6 +97,7 @@ const EducacionForm = () => {
                 name="cue"
                 value={formData.cue}
                 onChange={handleChange}
+                required
             />
             <TextField style={{marginBottom:'7px'}}
                 label="Nombre de la Escuela"
@@ -92,6 +106,7 @@ const EducacionForm = () => {
                 name="nombreEscuela"
                 value={formData.nombreEscuela}
                 onChange={handleChange}
+                required
             />
             <TextField style={{marginBottom:'7px'}}
                 label="Localidad de la Escuela"
@@ -100,6 +115,7 @@ const EducacionForm = () => {
                 name="localidadEscuela"
                 value={formData.localidadEscuela}
                 onChange={handleChange}
+                required
             />
             <TextField style={{marginBottom:'7px'}}
                 label="Nombre del Director"
@@ -108,6 +124,7 @@ const EducacionForm = () => {
                 name="nombreDirector"
                 value={formData.nombreDirector}
                 onChange={handleChange}
+                required
             />
             <TextField style={{marginBottom:'7px'}}
                 label="Grado"
@@ -116,15 +133,12 @@ const EducacionForm = () => {
                 name="grado"
                 value={formData.grado}
                 onChange={handleChange}
+                required
             />
-            <TextField style={{marginBottom:'7px'}}
-                label="Turno"
-                variant="outlined"
-                fullWidth
-                name="turno"
-                value={formData.turno}
-                onChange={handleChange}
-            />
+            <select name='turno' svalue={formData.turno} label='turno' onChange={handleChange} required>
+                <option value="Mañana">Mañana</option>
+                <option value="Tarde">Tarde</option>
+            </select>
             <TextField style={{marginBottom:'7px'}}
                 label="Cantidad de Alumnos"
                 variant="outlined"
@@ -132,6 +146,8 @@ const EducacionForm = () => {
                 name="cantAlumnos"
                 value={formData.cantAlumnos}
                 onChange={handleChange}
+                inputProps={{ max: 25}}
+                required
             />
             <TextField style={{marginBottom:'7px'}}
                 label="Teléfono"
@@ -140,6 +156,7 @@ const EducacionForm = () => {
                 name="telefono"
                 value={formData.telefono}
                 onChange={handleChange}
+                required
             />
             <TextField style={{marginBottom:'7px'}}
                 label="Email"
@@ -148,6 +165,7 @@ const EducacionForm = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
+                required
             />
             <TextField style={{marginBottom:'7px'}}
                 label="Fecha de la Visita"
@@ -158,10 +176,12 @@ const EducacionForm = () => {
                 value={formData.fechaVisita}
                 onChange={handleChange}
                 onClick={() => setCalendarOpen(true)}
+                required
             />
             <FormControlLabel 
                 control={<Checkbox checked={formData.prometo} onChange={handleCheckboxChange} />}
                 label="Prometo comportarme y mantener el lugar y las computadoras limpias y seguras durante nuestra visita."
+                required
             />
             <Button variant="contained" color="primary" type="submit">
                 Enviar
