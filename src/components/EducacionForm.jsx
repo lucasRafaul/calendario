@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, FormControlLabel, Checkbox } from '@mui/material';
 import CalendarDate from './CalendarDate';
 import axios from 'axios';
@@ -20,6 +20,26 @@ const EducacionForm = () => {
     });
 
     const [calendarOpen, setCalendarOpen] = useState(false);
+    const [fechasOcupadas, setFechasOcupadas] = useState([]);
+
+    useEffect(() => {
+        if (formData.fechaVisita) {
+          const fetchTurnos = async () => {
+            try {
+              const response = await axios.get('/api/turnos/turnosAgregados', { params: { fechaVisita: formData.fechaVisita } })
+              console.log('Response Data:', response.data); // Log the response data
+              if (Array.isArray(response.data)) {
+                setFechasOcupadas(response.data.map(slot => slot.horario));
+              } else {
+                console.error('Unexpected response data format:', response.data);
+              }
+            } catch (error) {
+              console.error('Error fetching turnos', error);
+            }
+          };
+          fetchTurnos();
+        }
+      }, [formData.fechaVisita]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -52,19 +72,16 @@ const EducacionForm = () => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit =  async (e) => {
         e.preventDefault();
-        axios.post('/api/turno_instituto/agregar',{
-            formData
-        })
-        .then(function (response) {
-            response.estado == 'okay' ? alert('se grabo correctamente') :  alert('error al grabar')
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-
-
+        const { prometo, ...dataToSend } = formData; 
+        try{
+            await axios.post("/api/turnos/agregarTurno",formData);
+            alert('el turno se agrego');
+        }catch(error){
+            console.error('error al enviar el formulario',error);
+            alert('error al cargar');
+        }
         setFormData({
             cue: '',
             nombreEscuela: '',
@@ -87,7 +104,7 @@ const EducacionForm = () => {
             component="form"
             autoComplete="on"
             onSubmit={handleSubmit}
-            action='/turno_instituto'
+            action='/api/turnos'
             method='POST'
         >
             <TextField style={{marginBottom:'7px', marginTop:'5px' }}

@@ -1,5 +1,3 @@
-const TABLA = 'turno_instituto';
-
 
 
 module.exports = function (dbInyectada){

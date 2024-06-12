@@ -3,7 +3,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const config = require('./config');
 
-const turno_instituto = require('./modulos/clientes/rutas.js')
+const turnosInstituto = require('./modulos/turnos/rutas.js');
 const usuarios = require('./modulos/usuarios/rutas.js')
 const error = require('./red/errors.js');
 const autenticacion = require('./modulos/autenticacion/rutas.js');
@@ -27,7 +27,7 @@ app.use(express.static('public'));
 app.set('port', config.app.port)
 
 //rutas
-app.use('/api/turno_instituto', turno_instituto);
+app.use('/api/turnos', turnosInstituto);
 app.use('/api/usuarios', usuarios);
 
 
