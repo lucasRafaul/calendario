@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Box, FormControlLabel, Checkbox } from '@mui/material';
-import CalendarDate from './CalendarDate';
+import { TextField, Button, Box, FormControlLabel, Checkbox, Select, MenuItem } from '@mui/material';
+import Calendario from './Calendario';
 import axios from 'axios';
 
 const EducacionForm = () => {
@@ -22,11 +22,12 @@ const EducacionForm = () => {
     const [calendarOpen, setCalendarOpen] = useState(false);
     const [fechasOcupadas, setFechasOcupadas] = useState([]);
 
+
     useEffect(() => {
         if (formData.fechaVisita) {
           const fetchTurnos = async () => {
             try {
-              const response = await axios.get('/api/turnos/turnosAgregados', { params: { fechaVisita: formData.fechaVisita } })
+              const response = await axios.get(`/api/turnos/turnosAgregados?fecha_visita=${formData.fechaVisita}`)
               console.log('Response Data:', response.data); // Log the response data
               if (Array.isArray(response.data)) {
                 setFechasOcupadas(response.data.map(slot => slot.horario));
@@ -73,8 +74,8 @@ const EducacionForm = () => {
     };
 
     const handleSubmit =  async (e) => {
+        const { prometo, ...formData } = formData; 
         e.preventDefault();
-        const { prometo, ...dataToSend } = formData; 
         try{
             await axios.post("/api/turnos/agregarTurno",formData);
             alert('el turno se agrego');
@@ -152,10 +153,15 @@ const EducacionForm = () => {
                 onChange={handleChange}
                 required
             />
-            <select name='turno' svalue={formData.turno} label='turno' onChange={handleChange} required>
-                <option value="Mañana">Mañana</option>
-                <option value="Tarde">Tarde</option>
-            </select>
+            <TextField style={{marginBottom: '7px'}}
+                label='Turno'
+                variant='outlined'
+                fullWidth
+                name='turno'
+                value={formData.turno}
+                onChange={handleChange}
+                required
+           />
             <TextField style={{marginBottom:'7px'}}
                 label="Cantidad de Alumnos"
                 variant="outlined"
@@ -203,7 +209,7 @@ const EducacionForm = () => {
             <Button variant="contained" color="primary" type="submit">
                 Enviar
             </Button>
-            <CalendarDate
+            <Calendario
                 open={calendarOpen}
                 onClose={() => setCalendarOpen(false)}
                 onDateClick={handleDateChange}

@@ -1,33 +1,32 @@
 const TABLA = 'turno_instituto';
 const autenticacion = require('../../autenticacion');
-module.exports = function (dbInyectada){
+module.exports = function (dbInyectada){  
 
     let db = dbInyectada;
 
     if(!db){
         db = require('../../DB/mysql.js');
     }
-    s
+    
     const agregarTurno = async (data) => {
-        try {
-          await db.agregar(TABLA, data);
+      try {
+          await db.query('INSERT INTO turno_instituto SET ? ON DUPLICATE KEY UPDATE ?', [data, data]);
           return { success: true, message: 'Turno saved successfully' };
-        } catch (error) {
+      } catch (error) {
           throw new Error('Error saving turno: ' + error.message);
-        }
-      };
+      }
+  };
       
       // Function to get bookings by date
-      const getTurnosPorFecha = async (fechaVisita) => {
+      const getTurnosPorFecha = async (fechaVisita,horario) => {
         try {
-          const results = await db.query(TABLA, { fechaVisita });
-          console.log('Results from DB:', results); // Log the results from DB
-          return results;
+            const results = await db.query('SELECT * FROM turno_instituto WHERE fecha_visita = ? && horario = ?', [fechaVisita,horario]);
+            return results;
         } catch (error) {
-          throw new Error('Error trayendo los turnos: ' + error.message);
+            throw new Error('Error trayendo los turnos: ' + error.message);
         }
-      };
+    };
       return {
-        agregarTurno, getTurnosPorFecha,
+        agregarTurno, getTurnosPorFecha
     }
 }

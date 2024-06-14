@@ -15,7 +15,7 @@ async function todos(req, res, next){
         const items = await controlador.todos()
         respuestas.success(req, res, items, 200)
     }catch(err){
-        next(error);
+        next(err);
     }
     
         
@@ -41,7 +41,7 @@ async function agregar(req, res, next){
         }
         respuestas.success(req, res, mensaje, 201)
     }catch(err){
-        next(error);
+        next(err);
     }
     
         
@@ -53,7 +53,7 @@ async function eliminar(req, res, next){
         const items = await controlador.eliminar(req.body)
         respuestas.success(req, res, 'item eliminado', 200)
     }catch(err){
-        next(error);
+        next(err);
     }
     
         

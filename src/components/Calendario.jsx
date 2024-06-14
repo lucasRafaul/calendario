@@ -5,7 +5,8 @@ import 'react-calendar/dist/Calendar.css';
 import { es } from 'date-fns/locale';
 import Horario from './Horario';
 
-const CalendarDate = ({ open, onClose, onDateClick, onHorarioChange }) => {
+const Calendario = ({ open, onClose, onDateClick, onHorarioChange }) => {
+    
     const [horarioOpen, setHorarioOpen] = useState(false);
 
     const handleDateClick = (date) => {
@@ -38,4 +39,4 @@ const CalendarDate = ({ open, onClose, onDateClick, onHorarioChange }) => {
     );
 };
 
-export default CalendarDate;
+export default Calendario;

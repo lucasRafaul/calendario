@@ -2,6 +2,8 @@ const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const config = require('./config');
+const bodyParser = require("body-parser");
+const router = express.Router();
 
 const turnosInstituto = require('./modulos/turnos/rutas.js');
 const usuarios = require('./modulos/usuarios/rutas.js')
@@ -20,8 +22,8 @@ var corsOpcions = {
 //Middleware
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true}));
-app.use(express.static('public'));
 
 //Configuracion
 app.set('port', config.app.port)

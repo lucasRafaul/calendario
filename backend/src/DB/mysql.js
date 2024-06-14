@@ -67,12 +67,15 @@ function eliminar(tabla, data){
     }); 
 }
 
-function query(tabla, consulta){
-    return new Promise( (resolve, reject) => {
-        conexion.query(`SELECT * FROM ${tabla} WHERE ?`, consulta, (error, result) =>{
-            return error ? reject(error): resolve(result[0]);
+function query(sql, args) {
+    return new Promise((resolve, reject) => {
+        conexion.query(sql, args, (err, results) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve(results);
         });
-    }); 
+    });
 }
 
 module.exports = {
