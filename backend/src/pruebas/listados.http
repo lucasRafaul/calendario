@@ -1,0 +1,19 @@
+## Prueba
+get http://localhost:3000/get
+### Prueba de insercion
+POST http://localhost:3000/post
+content-type: application/json
+
+{
+        "cue": "2131231",
+        "nombreEscuela": "escuela increible",
+        "localidadEscuela": "resistencia",
+        "nombreDirector": "mariano",
+        "grado": "3to 3ra",
+        "turno": "tarde",
+        "cantAlumnos": 21,
+        "telefono": "325235235",
+        "email": "awefawefawfe@gmail.com",
+        "fechaVisita": "25-06-24",
+        "horario": "10-10"
+}
