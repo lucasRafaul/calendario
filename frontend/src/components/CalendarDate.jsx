@@ -11,6 +11,8 @@ const CalendarDate = ({ open, onClose, onDateClick, onHorarioChange }) => {
     const handleDateClick = (date) => {
         onDateClick(date);
         onClose();
+        //llamada al backend
+        // si = 0 
         setHorarioOpen(true);
     };
 

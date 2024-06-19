@@ -1,33 +1,15 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { Dialog, DialogTitle, DialogContent, TextField, Button, Box } from '@mui/material';
-import { format } from 'date-fns';
-import { es } from 'date-fns/locale';
+import React, { useState } from 'react';
+import { TextField, Button, Box } from '@mui/material';
 
-const ParticularForm = ({ open, onClose}) => {
+const ParticularForm = () => {
   const [formData, setFormData] = useState({
-    nombreApellido: 'lucas',
+    nombreApellido: '',
     edad: '',
-    anioNacimiento: '',
+    fechaNacimiento: '',
     nombreApellidoTutor: '',
     telefono: '',
-    email:'',
-
+    email: '',
   });
-
-  useEffect(() => {
-    const handleInvalid = (e) => {
-      const input = e.target;
-      if (input.validity.valueMissing) {
-        input.setCustomValidity('Por favor, completa este campo.');
-      }
-    };
-
-    document.addEventListener('invalid', handleInvalid, true);
-
-    return () => {
-      document.removeEventListener('invalid', handleInvalid, true);
-    };
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,46 +17,66 @@ const ParticularForm = ({ open, onClose}) => {
       ...formData,
       [name]: value,
     });
-    e.target.setCustomValidity('');
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
     console.log(formData);
-    onClose();
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
-      <DialogTitle>Formulario de Inscripción Particular</DialogTitle>
-      <DialogContent>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-          <TextField
-            label="Nombre"
-            name="nonbreApellido"
-            value={formData.name}
-            onChange={handleChange}
-            required
-            fullWidth
-            margin="normal"
-          />
-          <TextField
-            label="Email"
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
-            fullWidth
-            margin="normal"
-          />
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            Enviar
-          </Button>
-        </Box>
-      </DialogContent>
-    </Dialog>
+    <Box component="form" onSubmit={handleSubmit}>
+      <TextField
+        label="Apellido y Nombre (del niño)"
+        name="nombreApellido"
+        value={formData.nombreApellido}
+        onChange={handleChange}
+        required
+      />
+      <TextField
+        label="Edad (del niño)"
+        name="edad"
+        type="number"
+        value={formData.edad}
+        onChange={handleChange}
+        required
+      />
+      <TextField
+        label="Fecha de Nacimiento (del niño)"
+        name="fechaNacimiento"
+        type="date"
+        InputLabelProps={{ shrink: true }}
+        value={formData.fechaNacimiento}
+        onChange={handleChange}
+        required
+      />
+      <TextField
+        label="Nombre y Apellido del Tutor"
+        name="nombreApellidoTutor"
+        value={formData.nombreApellidoTutor}
+        onChange={handleChange}
+        required
+      />
+      <TextField
+        label="Teléfono del Tutor"
+        name="telefono"
+        type="tel"
+        value={formData.telefono}
+        onChange={handleChange}
+        required
+      />
+      <TextField
+        label="Correo Electrónico del Tutor"
+        name="email"
+        type="email"
+        value={formData.email}
+        onChange={handleChange}
+        required
+      />
+      <Button type="submit" variant="contained" color="primary">
+        Enviar
+      </Button>
+    </Box>
   );
 };
 

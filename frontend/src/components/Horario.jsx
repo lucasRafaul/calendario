@@ -13,6 +13,7 @@ const Horario = ({ open, onClose, onHorarioChange }) => {
         onClose();
     };
 
+
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>Seleccione un Horario</DialogTitle>

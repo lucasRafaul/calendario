@@ -5,22 +5,20 @@ import ParticularForm from './components/ParticularForm';
 import DocenteForm from './components/DocenteForm';
 
 function App() {
-  const [formType, setFormType] = useState(null);
-  const [comunidadOption, setComunidadOption] = useState('');
+  const [formActual, setFormActual] = useState('');
 
   const handleEducacionClick = () => {
-    setFormType('educacion');
-    setComunidadOption('');
+    setFormActual('educacion');
   };
 
-  const handleComunidadChange = (event) => {
-    const selectedValue = event.target.value;
-    setComunidadOption(selectedValue);
+  const handleComunidadChange = (e) => {
+    const selectedValue = e.target.value;
+    setFormActual(selectedValue);
   };
 
   return (
     <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-      <Card style={{ padding: '20px', textAlign: 'center', marginTop: formType == 'taller Docente' || formType =='taller Particulares'? '0px':'100px'}}>
+      <Card style={{ padding: '20px', textAlign: 'center', marginTop: formActual == 'taller Docente' || formActual =='taller Particulares'? '0px':'100px'}}>
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom>
             Formulario de Inscripción
@@ -36,7 +34,7 @@ function App() {
           </Button>
           <FormControl fullWidth>
             <Select
-              value={comunidadOption}
+              value={formActual == 'taller Docente' || formActual == 'taller Comunidad' ? formActual : 'Abierto a la Comunidad'}
               displayEmpty
               onChange={handleComunidadChange}
               renderValue={(selected) => {
@@ -53,9 +51,8 @@ function App() {
               <MenuItem value="taller Comunidad">Taller Comunidad</MenuItem>
             </Select>
           </FormControl>
-          {formType === 'educacion' && <EducacionForm />}
-          {formType === 'taller Docente' && < DocenteForm />}
-          {( formType === 'taller Comunidad') && (
+          {formActual === 'educacion' && <EducacionForm />}
+          {( formActual === 'taller Comunidad' || formActual === 'taller Docente') && (
             <Typography variant="h4" align="center" style={{ marginTop:'50px' }}>
               Próximamente
             </Typography>
