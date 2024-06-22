@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
 import axios from 'axios';
 
-const Horario = ({ open, onClose, onHorarioChange }) => {
-    
+const Horario = ({ open, onClose, onHorarioChange, horariosOcupados }) => {
+
     const [horarios, setHorarios] = useState([]);
     const [selectedHorario, setSelectedHorario] = useState('');
 
@@ -47,7 +47,7 @@ const Horario = ({ open, onClose, onHorarioChange }) => {
                     backgroundColor: '#f9f9f9',
                     marginBottom: '20px',
                 }}> 
-                    {horarios.map(horario => (
+                    {horarios.filter(horario => !horariosOcupados.includes(horario.id)).map(horario => (
                         <option key={horario.id} value={horario.id} style={{padding:'10px'}}>
                             {horario.descr}
                         </option>

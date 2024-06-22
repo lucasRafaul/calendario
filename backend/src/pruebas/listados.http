@@ -24,3 +24,7 @@ GET http://localhost:3000/get_horarios
 
 ###
 GET http://localhost:3000/horario/disponible?id=2&fechaVisita=28/6/2024
+
+
+###
+GET http://localhost:3000/horarios/ocupados?fechaVisita=28/6/2024

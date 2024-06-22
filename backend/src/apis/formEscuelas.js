@@ -33,9 +33,10 @@ export async function horarioDisponible(id, fechaVisita) {
     }
 }
 
-export async function horariosOcupados(fechaVisita){
+export async function getHorariosOcupados(fechaVisita){
     try{
-        const [rows] = await db.execute("SELECT horario FROM escuela WHERE fe_visita = ? ")
+        const [rows] = await db.execute("SELECT horario FROM escuela WHERE fe_visita = ? ", [fechaVisita]);
+        return rows.map(row => row.horario)
     }
     catch(error){
         console.error('error al cargar los horarios ocupados en la fecha: ', error);

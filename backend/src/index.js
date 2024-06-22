@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import { Escuela, Horarios, PostTurno, horarioDisponible } from './apis/formEscuelas.js';
+import { Escuela, Horarios, PostTurno, horarioDisponible, getHorariosOcupados } from './apis/formEscuelas.js';
 
 const app = express()
 app.use(express.json());
@@ -38,6 +38,17 @@ app.get('/horario/disponible', async (req, res) => {
   } catch (error) {
       console.error('Error checking horario availability:', error);
       res.status(500).json({ error: "Error checking horario availability" });
+  }
+});
+app.get('/horarios/ocupados', async (req, res) => {
+  const { fechaVisita } = req.query;
+
+  try {
+      const ocupados = await getHorariosOcupados(fechaVisita);
+      res.json({ ocupados });
+  } catch (error) {
+      console.error('Error fetching occupied horarios:', error);
+      res.status(500).json({ error: "Error fetching occupied horarios" });
   }
 });
 
