@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Grid } from '@mui/material';
+import axios from 'axios';
 
 const ParticularForm = () => {
   const [formData, setFormData] = useState({
@@ -19,8 +20,23 @@ const ParticularForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try{
+      await axios.post("http://localhost:3000/post/comunidad", formData);
+      alert('el turno se agrego');
+  }catch(error){
+      console.error('error al enviar el formulario',error);
+      alert('error al cargar');
+  }
+  setFormData({
+    nombreApellido: '',
+    edad: '',
+    fechaNacimiento: '',
+    nombreApellidoTutor: '',
+    telefono: '',
+    email: '',
+  })
     console.log(formData);
   };
 

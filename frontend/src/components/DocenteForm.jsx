@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Grid } from '@mui/material';
+import axios from 'axios';
 
 const DocenteForm = () => {
   const [formData, setFormData] = useState({
@@ -18,8 +19,22 @@ const DocenteForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    try{
+      await axios.post("http://localhost:3000/post/docente", formData);
+      alert('el turno se agrego');
+  }catch(error){
+      console.error('error al enviar el formulario',error);
+      alert('error al cargar');
+  }
+  setFormData({
+    nombreApellido: '',
+    escuela: '',
+    dni: '',
+    email: '',
+    telefono: '',
+  })
     console.log(formData);
   };
 

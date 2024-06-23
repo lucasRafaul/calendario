@@ -19,12 +19,12 @@ content-type: application/json
 }
 
 
-###
+###envio de horarios
 GET http://localhost:3000/get_horarios
 
-###
+###hay un horario disponible en la fecha indicada?
 GET http://localhost:3000/horario/disponible?id=2&fechaVisita=28/6/2024
 
 
-###
+###que horarios existen en esa fecha especifica?
 GET http://localhost:3000/horarios/ocupados?fechaVisita=28/6/2024

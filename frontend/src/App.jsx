@@ -1,11 +1,31 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Container, Card, CardContent, Typography, MenuItem, Select, FormControl } from '@mui/material';
 import EducacionForm from './components/EducacionForm';
 import ParticularForm from './components/ParticularForm';
 import DocenteForm from './components/DocenteForm';
+import axios from 'axios';
 
 function App() {
   const [formActual, setFormActual] = useState('');
+  const [comunidadExists, setComunidadExists] = useState(false);
+  const [docenteExists, setDocenteExists] = useState(false);
+
+
+  useEffect(() => {
+    async function checkCourses() {
+      try {
+        const comunidadResponse = await axios.get('http://localhost:3000/comunidad_exists');
+        const docenteResponse = await axios.get('http://localhost:3000/docente_exists');
+
+        setComunidadExists(comunidadResponse.data.exists);
+        setDocenteExists(docenteResponse.data.exists);
+      } catch (error) {
+        console.error('Error checking course existence:', error);
+      }
+    }
+
+    checkCourses();
+  }, []);
 
   const handleEducacionClick = () => {
     setFormActual('educacion');
@@ -52,12 +72,16 @@ function App() {
             </Select>
           </FormControl>
           {formActual === 'educacion' && <EducacionForm />}
-          {formActual === 'taller Docente' && <DocenteForm/>}
-          {(formActual === 'taller Comunidad') && (
-            <Typography variant="h4" align="center" style={{ marginTop:'50px' }}>
+          {formActual === 'taller Docente' && (docenteExists ? <DocenteForm /> : (
+            <Typography variant="h4" align="center" style={{ marginTop: '50px' }}>
               Próximamente
             </Typography>
-          )}
+          ))}
+          {formActual === 'taller Comunidad' && (comunidadExists ? <ParticularForm /> : (
+            <Typography variant="h4" align="center" style={{ marginTop: '50px' }}>
+              Próximamente
+            </Typography>
+          ))}
         </CardContent>
       </Card>
     </Container>
