@@ -14,7 +14,7 @@ export async function PostTurnoDocente(request) {
     const data = request.body;
     console.log(data)
     const campos = "nom_apellido, escuela, dni, email, telefono"
-    await db.execute("INSERT INTO inscripciones_docente ("+campos+") VALUES (?, ?, ?, ?, ?)", 
+    await db.execute("INSERT INTO inscripciones_docentes ("+campos+") VALUES (?, ?, ?, ?, ?)", 
         [data.nombreApellido, data.escuela, data.dni, data.email, data.telefono]);
 }
 

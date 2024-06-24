@@ -1,3 +1,4 @@
+// Importación de librerías y componentes necesarios
 import React, { useState, useEffect } from 'react';
 import { Button, Container, Card, CardContent, Typography, MenuItem, Select, FormControl, Box } from '@mui/material';
 import EducacionForm from './components/EducacionForm';
@@ -6,10 +7,12 @@ import DocenteForm from './components/DocenteForm';
 import axios from 'axios';
 
 function App() {
+  // useStates para manejar el formulario actual y la existencia de cursos
   const [formActual, setFormActual] = useState('');
   const [comunidadExists, setComunidadExists] = useState(false);
   const [docenteExists, setDocenteExists] = useState(false);
 
+  // useEffect para verificar la existencia de cursos al cargar el componente
   useEffect(() => {
     async function checkCourses() {
       try {
@@ -26,15 +29,18 @@ function App() {
     checkCourses();
   }, []);
 
+  // Controlador de eventos para cambio en el formulario, pone el formActual al valor "educacion"
   const handleEducacionClick = () => {
     setFormActual('educacion');
   };
 
+  // Controlador de eventos para cambio en el formulario, agarra el valor del select, y lo pone en el formActual
   const handleComunidadChange = (e) => {
     const selectedValue = e.target.value;
     setFormActual(selectedValue);
   };
 
+  // Controlador de eventos para cambio en el formulario, manda al usuario al inicio del sistema
   const handleReturnHome = () => {
     setFormActual('');
   };
@@ -44,9 +50,11 @@ function App() {
       <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
         <Card sx={{ width: '100%', maxWidth: 600 }}>
           <CardContent>
+            {/* Título del formulario */}
             <Typography variant="h5" component="div" gutterBottom style={{textAlign:"center"}}>
               Formulario de Inscripción
             </Typography>
+            {/* Botón para visitas a escuelas */}
             <Button
               variant="contained"
               color="primary"
@@ -56,6 +64,7 @@ function App() {
             >
               Visitas Escuelas
             </Button>
+            {/* Selector para talleres */}
             <FormControl fullWidth sx={{ mb: 2 }}>
               <Select sx={{
                   textAlign: 'center',
@@ -75,6 +84,7 @@ function App() {
                 <MenuItem value="taller Comunidad">Taller Comunidad</MenuItem>
               </Select>
             </FormControl>
+            {/* Renderizado condicional de formularios */}
             <Box sx={{ my: 2 }}>
               {formActual === 'educacion' && <EducacionForm />}
               {formActual === 'taller Docente' && (docenteExists ? <DocenteForm /> : (
@@ -88,6 +98,7 @@ function App() {
                 </Typography>
               ))}
             </Box>
+             {/* Botón para volver al inicio */}
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
                 <Button
                   variant="outlined"

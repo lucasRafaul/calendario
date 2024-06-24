@@ -2,45 +2,49 @@ import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Typography } from '@mui/material';
 import axios from 'axios';
 
+// Componente Horario para seleccionar un horario disponible
 const Horario = ({ open, onClose, onHorarioChange, horariosOcupados }) => {
 
+    // useStates para manejar los horarios y el horario seleccionado
     const [horarios, setHorarios] = useState([]);
     const [selectedHorario, setSelectedHorario] = useState('');
 
-  
+    // Función para obtener los horarios del servidor
     async function fetchHorarios() {
         try {
-            const response = await axios.get('http://localhost:3000/get_horarios'); // Adjust URL as per your backend setup
-            setHorarios(response.data); // Assuming response.data is an array of { id, descr }
+            const response = await axios.get('http://localhost:3000/get_horarios');
+            setHorarios(response.data);
         } catch (error) {
             console.error('Error fetching horarios:', error);
-            // Handle error fetching data
+            // Aquí se podría manejar el error, por ejemplo, mostrando un mensaje al usuario
         }
     }
 
-
+    // useEffect para cargar los horarios al montar el componente
     useEffect(() => {
         fetchHorarios();
     }, []);
     
-
+    // Controlador para el cambio en la selección de horario
     const handleChange = (e) => {
         setSelectedHorario(e.target.value);
     };
 
+    // Controlador para confirmar la selección del horario
     const handleSelectHorario = () => {
         onHorarioChange(selectedHorario);
         onClose();
     };
 
+    // Filtrar los horarios disponibles
     const horariosDisponibles = horarios.filter(horario => !horariosOcupados.includes(horario.id));
-
 
     return (
         <Dialog open={open} onClose={onClose}>
             <DialogTitle>Seleccione un Horario</DialogTitle>
             <DialogContent>
             {horariosDisponibles.length > 0 ? (
+                    // Selector de horarios si hay disponibles
                     <select
                         name="horarios"
                         id="horariosId"
@@ -62,21 +66,19 @@ const Horario = ({ open, onClose, onHorarioChange, horariosOcupados }) => {
                         ))}
                     </select>
                 ) : (
+                    // Mensaje si no hay horarios disponibles
                     <Typography variant="body1" color="error" align="center">
                         No hay horarios disponibles para esta fecha.
                     </Typography>
                 )}
-
             </DialogContent>
             <DialogActions>
-            <Button onClick={handleSelectHorario} color="primary">
+                <Button onClick={handleSelectHorario} color="primary">
                     Enviar
                 </Button>
             </DialogActions>
-
         </Dialog>
     );
 };
 
 export default Horario;
-
