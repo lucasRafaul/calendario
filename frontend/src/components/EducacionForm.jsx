@@ -19,7 +19,6 @@ const EducacionForm = () => {
     });
 
     const [calendarOpen, setCalendarOpen] = useState(false);
-    const [fechasOcupadas, setFechasOcupadas] = useState([]);
 
 
     const handleChange = (e) => {
@@ -38,14 +37,6 @@ const EducacionForm = () => {
                 [name]: value
             }));
         }
-    };
-
-    const handleCheckboxChange = (e) => {
-        const { checked } = e.target;
-        setFormData({
-            ...formData,
-            prometo: checked
-        });
     };
 
     const handleDateChange = (date) => {

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { TextField, Button, Box, Grid } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { TextField, Button, Box, Grid, Typography } from '@mui/material';
 import axios from 'axios';
 
 const DocenteForm = () => {
@@ -10,6 +10,20 @@ const DocenteForm = () => {
     email: '',
     telefono: '',
   });
+  const [docenteData, setDocenteData] = useState(null)
+
+
+  useEffect(() => {
+    const fetchDocenteData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/docente_data');
+        setDocenteData(response.data);
+      } catch (error) {
+        console.error('Error fetching comunidad data:', error);
+      }
+    };
+    fetchDocenteData();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,6 +54,15 @@ const DocenteForm = () => {
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+       {docenteData && (
+        <>
+          <Typography variant="h4" component="h2" gutterBottom>
+            {docenteData.titulo}
+          </Typography>
+        </>)}
+
+
+
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField

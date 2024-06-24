@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { TextField, Button, Box, Grid } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { TextField, Button, Box, Grid, Typography, CardMedia} from '@mui/material';
 import axios from 'axios';
 
 const ParticularForm = () => {
@@ -11,6 +11,19 @@ const ParticularForm = () => {
     telefono: '',
     email: '',
   });
+  const [comunidadData, setComunidadData] = useState(null);
+
+  useEffect(() => {
+    const fetchComunidadData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3000/comunidad_data');
+        setComunidadData(response.data);
+      } catch (error) {
+        console.error('Error fetching comunidad data:', error);
+      }
+    };
+    fetchComunidadData();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,6 +55,24 @@ const ParticularForm = () => {
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
+            {comunidadData && (
+        <>
+          <Typography variant="h4" component="h2" gutterBottom>
+            {comunidadData.titulo}
+          </Typography>
+          <CardMedia
+            component="img"
+            alt={comunidadData.titulo}
+            image={comunidadData.imagen}
+            title={comunidadData.titulo}
+            sx={{ display: 'block', 
+              margin: '0 auto', 
+              maxWidth: '20%', 
+              height: 'auto', 
+              marginBottom: 2  }}
+          />
+        </>
+      )}
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField

@@ -36,8 +36,12 @@ function App() {
     setFormActual(selectedValue);
   };
 
+  const handleReturnHome = () => {
+    setFormActual('');
+  };
+
   return (
-    <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    <Container style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh'}}>
       <Card style={{ padding: '20px', textAlign: 'center'}}>
         <CardContent>
           <Typography variant="h5" component="div" gutterBottom>
@@ -82,6 +86,14 @@ function App() {
               Próximamente
             </Typography>
           ))}
+            <Button
+              variant="outlined"
+              color="secondary"
+              onClick={handleReturnHome}
+              style={{ marginTop: '20px' }}
+            >
+              Inicio
+            </Button>
         </CardContent>
       </Card>
     </Container>

@@ -17,3 +17,17 @@ export async function PostTurnoDocente(request) {
     await db.execute("INSERT INTO inscripciones_docente ("+campos+") VALUES (?, ?, ?, ?, ?)", 
         [data.nombreApellido, data.escuela, data.dni, data.email, data.telefono]);
 }
+
+export async function getDocenteData() {
+    try {
+        const [rows] = await db.execute("SELECT titulo, imagen FROM docente WHERE id = 1");
+        if (rows.length > 0) {
+            return rows[0];
+        } else {
+            throw new Error('No docente found with id 1');
+        }
+    } catch (error) {
+        console.error('Error fetching docente data:', error);
+        throw new Error('Error fetching docente data');
+    }
+}

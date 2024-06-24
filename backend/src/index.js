@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import { Escuela, Horarios, PostTurno, horarioDisponible, getHorariosOcupados } from './apis/formEscuelas.js';
-import { checkComunidadExists, PostTurnoComunidad } from './apis/formComunidad.js';
-import { checkDocenteExists, PostTurnoDocente } from './apis/formDocente.js';
+import { checkComunidadExists, PostTurnoComunidad, getComunidadData } from './apis/formComunidad.js';
+import { checkDocenteExists, PostTurnoDocente, getDocenteData } from './apis/formDocente.js';
 
 const app = express()
 app.use(express.json());
@@ -57,8 +57,8 @@ app.get('/horario/disponible', async (req, res) => {
 
       res.json({ available: isAvailable });
   } catch (error) {
-      console.error('Error checking horario availability:', error);
-      res.status(500).json({ error: "Error checking horario availability" });
+      console.error('Error al checkear los horarios habilitados:', error);
+      res.status(500).json({ error: "Error al checkear los horarios habilitados" });
   }
 });
 app.get('/horarios/ocupados', async (req, res) => {
@@ -68,8 +68,8 @@ app.get('/horarios/ocupados', async (req, res) => {
       const ocupados = await getHorariosOcupados(fechaVisita);
       res.json({ ocupados });
   } catch (error) {
-      console.error('Error fetching occupied horarios:', error);
-      res.status(500).json({ error: "Error fetching occupied horarios" });
+      console.error('Error al traer los horarios ocupados:', error);
+      res.status(500).json({ error: "Error al traer los horarios ocupados" });
   }
 });
 
@@ -78,8 +78,8 @@ app.get('/comunidad_exists', async (req, res) => {
       const exists = await checkComunidadExists();
       res.json({ exists });
   } catch (error) {
-      console.error('Error checking comunidad existence:', error);
-      res.status(500).json({ error: "Error checking comunidad existence" });
+      console.error('Error al checkear la existencia de taller comunidad:', error);
+      res.status(500).json({ error: "Error al checkear la existencia de taller comunidad" });
   }
 });
 
@@ -88,8 +88,28 @@ app.get('/docente_exists', async (req, res) => {
       const exists = await checkDocenteExists();
       res.json({ exists });
   } catch (error) {
-      console.error('Error checking docente existence:', error);
-      res.status(500).json({ error: "Error checking docente existence" });
+      console.error('Error al checkear la existencia de taller docente:', error);
+      res.status(500).json({ error: "Error al checkear la existencia de taller docente" });
+  }
+});
+
+app.get('/comunidad_data', async (req, res) => {
+  try {
+      const data = await getComunidadData();
+      res.json(data);
+  } catch (error) {
+      console.error('Error fetching comunidad data:', error);
+      res.status(500).json({ error: "Error fetching comunidad data" });
+  }
+});
+
+app.get('/docente_data', async (req, res) => {
+  try {
+      const data = await getDocenteData();
+      res.json(data);
+  } catch (error) {
+      console.error('Error fetching docente data:', error);
+      res.status(500).json({ error: "Error fetching docente data" });
   }
 });
 
