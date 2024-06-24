@@ -186,9 +186,13 @@ const EducacionForm = () => {
                 onClick={() => setCalendarOpen(true)}
                 required
             />
-            <Button variant="contained" color="primary" type="submit">
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+            <Button variant="contained" color="primary" type="submit" sx={{ width: '120px' }}>
                 Enviar
             </Button>
+            
+            </Box>
+
             <CalendarDate
                 open={calendarOpen}
                 onClose={() => setCalendarOpen(false)}

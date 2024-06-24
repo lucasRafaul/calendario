@@ -67,7 +67,7 @@ const ParticularForm = () => {
             title={comunidadData.titulo}
             sx={{ display: 'block', 
               margin: '0 auto', 
-              maxWidth: '20%', 
+              maxWidth: '35%', 
               height: 'auto', 
               marginBottom: 2  }}
           />
@@ -139,12 +139,12 @@ const ParticularForm = () => {
             required
           />
         </Grid>
-        <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="primary">
-            Enviar
-          </Button>
-        </Grid>
       </Grid>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+            <Button variant="contained" color="primary" type="submit" sx={{ width: '120px' }}>
+                Enviar
+            </Button>
+      </Box>
     </Box>
   );
 };

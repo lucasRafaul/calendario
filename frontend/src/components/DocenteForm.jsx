@@ -117,12 +117,12 @@ const DocenteForm = () => {
             required
           />
         </Grid>
-        <Grid item xs={12}>
-          <Button type="submit" variant="contained" color="primary">
-            Enviar
-          </Button>
-        </Grid>
       </Grid>
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+            <Button variant="contained" color="primary" type="submit" sx={{ width: '120px' }}>
+                Enviar
+            </Button>
+      </Box>
     </Box>
   );
 };
