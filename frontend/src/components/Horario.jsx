@@ -45,26 +45,33 @@ const Horario = ({ open, onClose, onHorarioChange, horariosOcupados }) => {
             <DialogContent>
             {horariosDisponibles.length > 0 ? (
                     // Selector de horarios si hay disponibles
-                    <select
-                        name="horarios"
-                        id="horariosId"
-                        onChange={handleChange}
-                        style={{
-                            width: '100%',
-                            padding: '10px',
-                            fontSize: '16px',
-                            border: '1px solid #ccc',
-                            borderRadius: '4px',
-                            backgroundColor: '#f9f9f9',
-                            marginBottom: '20px',
-                        }}
-                    >
-                        {horariosDisponibles.map(horario => (
-                            <option key={horario.id} value={horario.id} style={{ padding: '10px' }}>
-                                {horario.descr}
-                            </option>
-                        ))}
-                    </select>
+                    <>
+                        <select
+                            name="horarios"
+                            id="horariosId"
+                            onChange={handleChange}
+                            style={{
+                                width: '100%',
+                                padding: '10px',
+                                fontSize: '16px',
+                                border: '1px solid #ccc',
+                                borderRadius: '4px',
+                                backgroundColor: '#f9f9f9',
+                                marginBottom: '20px',
+                            }}
+                        >
+                            {horariosDisponibles.map(horario => (
+                                <option key={horario.id} value={horario.id} style={{ padding: '10px' }}>
+                                    {horario.descr}
+                                </option>
+                            ))}
+                        </select>
+                        <DialogActions>
+                            <Button onClick={handleSelectHorario} color="primary">
+                                Enviar
+                            </Button>
+                        </DialogActions>
+                    </>
                 ) : (
                     // Mensaje si no hay horarios disponibles
                     <Typography variant="body1" color="error" align="center">
@@ -72,11 +79,6 @@ const Horario = ({ open, onClose, onHorarioChange, horariosOcupados }) => {
                     </Typography>
                 )}
             </DialogContent>
-            <DialogActions>
-                <Button onClick={handleSelectHorario} color="primary">
-                    Enviar
-                </Button>
-            </DialogActions>
         </Dialog>
     );
 };

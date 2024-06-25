@@ -56,6 +56,10 @@ const EducacionForm = () => {
 
     const handleSubmit =  async (e) => {
         e.preventDefault();
+        if (!formData.horario) {
+            alert('Por favor, seleccione un horario');
+            return;
+          }
         try{
             await axios.post("http://localhost:3000/post", formData);
             alert('el turno se agrego');
