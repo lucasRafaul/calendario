@@ -6,7 +6,7 @@ import axios from 'axios';
 const Horario = ({ open, onClose, onHorarioChange, horariosOcupados }) => {
 
     // useStates para manejar los horarios y el horario seleccionado
-    const [horarios, setHorarios] = useState([]);
+    const [horarios, setHorarios] = useState([]);   
     const [selectedHorario, setSelectedHorario] = useState('');
 
     // Función para obtener los horarios del servidor

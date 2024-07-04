@@ -21,7 +21,7 @@ export async function PostTurnoComunidad(request) {
 
 export async function getComunidadData() {
     try {
-        const [rows] = await db.execute("SELECT titulo, imagen FROM comunidad WHERE id = 1");
+        const [rows] = await db.execute("SELECT titulo, imagen, fecha FROM comunidad WHERE id = 1");
         if (rows.length > 0) {
             return rows[0];
         } else {

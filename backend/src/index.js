@@ -1,7 +1,7 @@
 // Importación de módulos necesarios
 import express from 'express';
 import cors from 'cors';
-import { Escuela, Horarios, PostTurno, horarioDisponible, getHorariosOcupados } from './apis/formEscuelas.js';
+import { Escuela, Horarios, PostTurno, horarioDisponible, getHorariosOcupados, getFechasOcupadas } from './apis/formEscuelas.js';
 import { checkComunidadExists, PostTurnoComunidad, getComunidadData } from './apis/formComunidad.js';
 import { checkDocenteExists, PostTurnoDocente, getDocenteData } from './apis/formDocente.js';
 
@@ -81,6 +81,16 @@ app.get('/horarios/ocupados', async (req, res) => {
       res.status(500).json({ error: "Error al traer los horarios ocupados" });
   }
 });
+
+app.get('/fechas-sin-horarios' , async (req, res) =>{
+  try{
+    const fechasSinHorarios = await getFechasOcupadas();
+    res.json({fechasSinHorarios});
+  } catch(error){
+    console.error('Error al traer las fechas sin horarios: ', error);
+    res.status(500).json({error: "Error al traer las fechas ocupadas"});
+  }
+})
 
 // Ruta para verificar existencia de taller comunidad
 app.get('/comunidad_exists', async (req, res) => {

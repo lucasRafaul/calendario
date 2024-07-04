@@ -26,7 +26,7 @@ export async function horarioDisponible(id, fechaVisita) {
         );
 
         const count = rows[0].count;
-        return count === 0; // Return true if available, false if not
+        return count === 0; // Retorna verdadera si disponible, falso sino.
     } catch (error) {
         console.error('Error checking horario availability:', error);
         throw new Error('Error checking horario availability');
@@ -44,6 +44,15 @@ export async function getHorariosOcupados(fechaVisita){
     }
 }
 
+export async function getFechasOcupadas() {
+    try {
+        const [rows] = await db.execute("SELECT fe_visita FROM escuela WHERE horario = 1 AND horario = 2 AND horario = 3 AND horario = 4")
+        return rows.map(row => row.fe_visita)
+    } catch(error) {
+        console.error('Error al cargar las fechas sin horarios: ', error);
+        throw new Error('Error al cargar las fechas sin horarios');
+    }
+}
 
 
 

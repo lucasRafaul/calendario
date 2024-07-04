@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Box, Grid, Typography, CardMedia} from '@mui/material';
+import { TextField, Button, Box, Grid, Typography, CardMedia } from '@mui/material';
 import axios from 'axios';
 
 const ParticularForm = () => {
@@ -35,29 +35,45 @@ const ParticularForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try{
+    try {
       await axios.post("http://localhost:3000/post/comunidad", formData);
-      alert('el turno se agrego');
-  }catch(error){
-      console.error('error al enviar el formulario',error);
-      alert('error al cargar');
-  }
-  setFormData({
-    nombreApellido: '',
-    edad: '',
-    fechaNacimiento: '',
-    nombreApellidoTutor: '',
-    telefono: '',
-    email: '',
-  })
-    console.log(formData);
+      alert('El turno se agregó');
+      setFormData({
+        nombreApellido: '',
+        edad: '',
+        fechaNacimiento: '',
+        nombreApellidoTutor: '',
+        telefono: '',
+        email: '',
+      });
+    } catch (error) {
+      console.error('Error al enviar el formulario', error);
+      alert('Error al cargar');
+    }
   };
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-            {comunidadData && (
-        <>
-          <Typography variant="h4" component="h2" gutterBottom>
+      {comunidadData && (
+        <Box sx={{ mb: 4, textAlign: 'center' }}>
+          <Typography 
+            variant="h5" 
+            component="h2" 
+            gutterBottom
+            sx={{
+              fontFamily: '"Playfair Display", serif',
+              fontWeight: 600,
+              color: '#1a237e',
+              borderBottom: '2px solid #1a237e',
+              paddingBottom: '8px',
+              marginBottom: '16px',
+              display: 'inline-block',
+              textTransform: 'capitalize',
+              letterSpacing: '0.5px',
+              textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
+              fontSize: '1.5rem',
+            }}
+          >
             {comunidadData.titulo}
           </Typography>
           <CardMedia
@@ -65,14 +81,28 @@ const ParticularForm = () => {
             alt={comunidadData.titulo}
             image={comunidadData.imagen}
             title={comunidadData.titulo}
-            sx={{ display: 'block', 
+            sx={{ 
+              display: 'block', 
               margin: '0 auto', 
               maxWidth: '35%', 
               height: 'auto', 
-              marginBottom: 2  }}
+              marginBottom: 2  
+            }}
           />
-        </>
+         <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            value={comunidadData.fecha}
+            disabled
+            sx={{ mb: 2 }}
+          />
+        </Grid>
+        </Grid>
+          
+        </Box>
       )}
+        
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
@@ -141,9 +171,9 @@ const ParticularForm = () => {
         </Grid>
       </Grid>
       <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-            <Button variant="contained" color="primary" type="submit" sx={{ width: '120px' }}>
-                Enviar
-            </Button>
+        <Button variant="contained" color="primary" type="submit" sx={{ width: '120px' }}>
+          Enviar
+        </Button>
       </Box>
     </Box>
   );

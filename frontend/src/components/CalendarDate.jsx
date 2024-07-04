@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent } from '@mui/material';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
+import './CalendarDate.css';
 import { es } from 'date-fns/locale';
 import Horario from './Horario';
 import axios from 'axios';
@@ -11,9 +12,29 @@ const CalendarDate = ({ open, onClose, onDateClick, onHorarioChange }) => {
     // useStates para controlar la apertura del Modal de horarios y los horarios ocupados
     const [horarioOpen, setHorarioOpen] = useState(false);
     const [horariosOcupados, setHorariosOcupados] = useState([]);
+    //const [fechasSinHorarios, setFechasSinHorarios] = useState([]);
+
+
+    useEffect(() => {
+        const fetchFechasSinHorarios = async () => {
+          try {
+            const response = await axios.get('http://localhost:3000/fechas-sin-horarios');
+            console.log('Backend response', response.data);
+            setFechasSinHorarios(response.data);
+          } catch (error) {
+            console.error('Error fetching fechas sin horarios:', error);
+          }
+        };
+        fetchFechasSinHorarios();
+      }, []);
 
     // Controlador para cuando se selecciona una fecha
     const handleDateClick = async (date) => {
+        const diaDeSemana = date.getDay();
+        if (diaDeSemana === 0 || diaDeSemana === 6) {
+          alert('No atendemos fines de semana');
+          return;
+        }
         onDateClick(date);
         onClose();
         const formattedDate = date.toLocaleDateString('es-ES');
@@ -43,6 +64,20 @@ const CalendarDate = ({ open, onClose, onDateClick, onHorarioChange }) => {
         return false;
     };
 
+    ///const tileClassName = ({ date, view }) => {
+        ///if (view === 'month') {
+          ///if (fechasSinHorarios.some(fechaSinHorario => 
+            ///fechaSinHorario.getDate() === date.getDate() &&
+            //fechaSinHorario.getMonth() === date.getMonth() &&
+            //fechaSinHorario.getFullYear() === date.getFullYear()
+          ///)) {
+           /// console.log('fecha sin horarios ', date)
+            //return 'no-horarios-day';
+         // }
+        ///}
+        ///return '';
+      ///};
+
     return (
         <div>
             {/* Modal para seleccionar la fecha */}
@@ -53,6 +88,7 @@ const CalendarDate = ({ open, onClose, onDateClick, onHorarioChange }) => {
                         onClickDay={handleDateClick} 
                         locale='es' 
                         tileDisabled={tileDisabled} 
+                        //tileClassName={tileClassName}
                     />
                 </DialogContent>
             </Dialog>
