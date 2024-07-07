@@ -10,8 +10,8 @@ const EducacionForm = () => {
         localidadEscuela: '',
         nombreDirector: '',
         grado: '',
-        turno: 'Mañana',
-        cantAlumnos: 0,
+        turno: '',
+        cantAlumnos: '',
         telefono: '',
         email: '',
         fechaVisita: '',
@@ -20,6 +20,14 @@ const EducacionForm = () => {
 
     const [calendarOpen, setCalendarOpen] = useState(false);
 
+    useEffect(() => {
+        // Set default values here
+        setFormData(prevData => ({
+            ...prevData,
+            turno: 'Mañana',
+            cantAlumnos: '',  
+        }));
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -74,7 +82,7 @@ const EducacionForm = () => {
             nombreDirector: '',
             grado: '',
             turno: '',
-            cantAlumnos: 0,
+            cantAlumnos: '',
             telefono: '',
             email: '',
             fechaVisita: '',
@@ -159,6 +167,7 @@ const EducacionForm = () => {
                 type="number"
                 value={formData.cantAlumnos}
                 onChange={handleChange}
+                InputProps={{inputProps:{min: 1, max:25}}}
                 required
             />
             <TextField style={{marginBottom:'7px'}}

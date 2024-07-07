@@ -67,7 +67,7 @@ const Horario = ({ open, onClose, onHorarioChange, horariosOcupados }) => {
                             ))}
                         </select>
                         <DialogActions>
-                            <Button onClick={handleSelectHorario} color="primary">
+                            <Button onClick={handleSelectHorario} color="primary" disabled={!selectedHorario}>
                                 Enviar
                             </Button>
                         </DialogActions>

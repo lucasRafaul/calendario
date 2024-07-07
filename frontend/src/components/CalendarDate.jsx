@@ -12,7 +12,7 @@ const CalendarDate = ({ open, onClose, onDateClick, onHorarioChange }) => {
     // useStates para controlar la apertura del Modal de horarios y los horarios ocupados
     const [horarioOpen, setHorarioOpen] = useState(false);
     const [horariosOcupados, setHorariosOcupados] = useState([]);
-    //const [fechasSinHorarios, setFechasSinHorarios] = useState([]);
+    const [fechasSinHorarios, setFechasSinHorarios] = useState([]);
 
 
     useEffect(() => {
@@ -20,7 +20,8 @@ const CalendarDate = ({ open, onClose, onDateClick, onHorarioChange }) => {
           try {
             const response = await axios.get('http://localhost:3000/fechas-sin-horarios');
             console.log('Backend response', response.data);
-            setFechasSinHorarios(response.data);
+            const fechas = response.data.fechasSinHorarios.map(date => date.toString());
+            setFechasSinHorarios(fechas);
           } catch (error) {
             console.error('Error fetching fechas sin horarios:', error);
           }
@@ -64,19 +65,23 @@ const CalendarDate = ({ open, onClose, onDateClick, onHorarioChange }) => {
         return false;
     };
 
-    ///const tileClassName = ({ date, view }) => {
-        ///if (view === 'month') {
-          ///if (fechasSinHorarios.some(fechaSinHorario => 
-            ///fechaSinHorario.getDate() === date.getDate() &&
-            //fechaSinHorario.getMonth() === date.getMonth() &&
-            //fechaSinHorario.getFullYear() === date.getFullYear()
-          ///)) {
-           /// console.log('fecha sin horarios ', date)
-            //return 'no-horarios-day';
-         // }
-        ///}
-        ///return '';
-      ///};
+    const tileClassName = ({ date, view }) => {
+        if (view === 'month') {
+            const today = new Date();
+            today.setHours(0, 0, 0, 0);
+
+            if (date < today) {
+                return '';  
+            }
+
+            const formattedDate = date.toLocaleDateString('es-ES');
+            if (fechasSinHorarios.includes(formattedDate)) {
+                return 'no-horarios-day';
+            }
+        }
+        return '';
+    };
+
 
     return (
         <div>
@@ -88,7 +93,7 @@ const CalendarDate = ({ open, onClose, onDateClick, onHorarioChange }) => {
                         onClickDay={handleDateClick} 
                         locale='es' 
                         tileDisabled={tileDisabled} 
-                        //tileClassName={tileClassName}
+                        tileClassName={tileClassName}
                     />
                 </DialogContent>
             </Dialog>

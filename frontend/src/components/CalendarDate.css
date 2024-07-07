@@ -17,10 +17,16 @@
 }
 
 .no-horarios-day {
-  background-color: #ffcccc !important;
+  position: relative;
 }
 
-.react-calendar__tile:disabled {
-  background-color: #f0f0f0;
-  color: #999;
+.no-horarios-day::after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 10px;
+  height: 10px;
+  background-color: red;
+  border-radius: 50%;
 }
