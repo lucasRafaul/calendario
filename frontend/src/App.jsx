@@ -9,23 +9,30 @@ import axios from 'axios';
 function App() {
   // useStates para manejar el formulario actual y la existencia de cursos
   const [formActual, setFormActual] = useState('');
-  const [comunidadExists, setComunidadExists] = useState(false);
-  const [docenteExists, setDocenteExists] = useState(false);
+  const [comunidadData, setComunidadData] = useState(null);
+  const [docenteData, setDocenteData] = useState(null);
+
+
+  async function checkCourses() {
+    try {
+      const comunidadResponse = await axios.get('http://localhost:3000/comunidad_data');
+      setComunidadData(comunidadResponse.data);
+    } catch (error) {
+      console.error('Error fetching comunidad data:', error);
+      setComunidadData(null);
+    }
+
+    try {
+      const docenteResponse = await axios.get('http://localhost:3000/docente_data');
+      setDocenteData(docenteResponse.data);
+    } catch (error) {
+      console.error('Error fetching docente data:', error);
+      setDocenteData(null);
+    }
+  }
 
   // useEffect para verificar la existencia de cursos al cargar el componente
   useEffect(() => {
-    async function checkCourses() {
-      try {
-        const comunidadResponse = await axios.get('http://localhost:3000/comunidad_exists');
-        const docenteResponse = await axios.get('http://localhost:3000/docente_exists');
-
-        setComunidadExists(comunidadResponse.data.exists);
-        setDocenteExists(docenteResponse.data.exists);
-      } catch (error) {
-        console.error('Error checking course existence:', error);
-      }
-    }
-
     checkCourses();
   }, []);
 
@@ -87,12 +94,12 @@ function App() {
             {/* Renderizado condicional de formularios */}
             <Box sx={{ my: 2 }}>
               {formActual === 'educacion' && <EducacionForm />}
-              {formActual === 'taller Docente' && (docenteExists ? <DocenteForm /> : (
+              {formActual === 'taller Docente' && (docenteData ? <DocenteForm talleres={docenteData}/> : (
                 <Typography variant="h4" align="center">
                   Próximamente
                 </Typography>
               ))}
-              {formActual === 'taller Comunidad' && (comunidadExists ? <ParticularForm /> : (
+              {formActual === 'taller Comunidad' && (comunidadData ? <ParticularForm talleres={comunidadData}/> : (
                 <Typography variant="h4" align="center">
                   Próximamente
                 </Typography>

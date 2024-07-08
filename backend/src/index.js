@@ -2,8 +2,8 @@
 import express from 'express';
 import cors from 'cors';
 import { Escuela, Horarios, PostTurno, horarioDisponible, getHorariosOcupados, getFechasOcupadas } from './apis/formEscuelas.js';
-import { checkComunidadExists, PostTurnoComunidad, getComunidadData } from './apis/formComunidad.js';
-import { checkDocenteExists, PostTurnoDocente, getDocenteData } from './apis/formDocente.js';
+import { PostTurnoComunidad, getComunidadData } from './apis/formComunidad.js';
+import {  PostTurnoDocente, getDocenteData } from './apis/formDocente.js';
 
 // Configuración de la aplicación Express
 const app = express()
@@ -92,27 +92,6 @@ app.get('/fechas-sin-horarios' , async (req, res) =>{
   }
 })
 
-// Ruta para verificar existencia de taller comunidad
-app.get('/comunidad_exists', async (req, res) => {
-  try {
-      const exists = await checkComunidadExists();
-      res.json({ exists });
-  } catch (error) {
-      console.error('Error al checkear la existencia de taller comunidad:', error);
-      res.status(500).json({ error: "Error al checkear la existencia de taller comunidad" });
-  }
-});
-
-// Ruta para verificar existencia de taller docente
-app.get('/docente_exists', async (req, res) => {
-  try {
-      const exists = await checkDocenteExists();
-      res.json({ exists });
-  } catch (error) {
-      console.error('Error al checkear la existencia de taller docente:', error);
-      res.status(500).json({ error: "Error al checkear la existencia de taller docente" });
-  }
-});
 
 // Ruta para obtener datos de comunidad
 app.get('/comunidad_data', async (req, res) => {

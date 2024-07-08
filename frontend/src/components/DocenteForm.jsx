@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, Grid, Typography } from '@mui/material';
 import axios from 'axios';
 
-const DocenteForm = () => {
+const DocenteForm = ({talleres}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [formData, setFormData] = useState({
     nombreApellido: '',
     escuela: '',
@@ -10,19 +11,6 @@ const DocenteForm = () => {
     email: '',
     telefono: '',
   });
-  const [docenteData, setDocenteData] = useState(null);
-
-  useEffect(() => {
-    const fetchDocenteData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/docente_data');
-        setDocenteData(response.data);
-      } catch (error) {
-        console.error('Error fetching comunidad data:', error);
-      }
-    };
-    fetchDocenteData();
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,7 +23,9 @@ const DocenteForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/post/docente", formData);
+      await axios.post("http://localhost:3000/post/docente",{
+        ...formData, tallerId: talleres[currentIndex].id
+      });
       alert('El turno se agregó');
       setFormData({
         nombreApellido: '',
@@ -49,10 +39,16 @@ const DocenteForm = () => {
       alert('Error al cargar');
     }
   };
+  const handlePrevious = () => {
+    setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : talleres.length - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex < talleres.length - 1 ? prevIndex + 1 : 0));
+  };
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-      {docenteData && (
         <Box sx={{ mb: 4, textAlign: 'center' }}>
           <Typography 
             variant="h5" 
@@ -69,14 +65,12 @@ const DocenteForm = () => {
               textTransform: 'capitalize',
               letterSpacing: '0.5px',
               textShadow: '1px 1px 2px rgba(0,0,0,0.1)',
-              fontSize: '1.5rem', // Slightly smaller font size
+              fontSize: '1.5rem', 
             }}
           >
-            {docenteData.titulo}
+            {talleres[currentIndex].titulo}
           </Typography>
         </Box>
-      )}
-
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
@@ -136,6 +130,16 @@ const DocenteForm = () => {
         <Button variant="contained" color="primary" type="submit" sx={{ width: '120px' }}>
           Enviar
         </Button>
+        {talleres.length > 1 && (
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, mb: 2 }}>
+              <Button onClick={handlePrevious}>
+                Anterior
+              </Button>
+              <Button onClick={handleNext}>
+                Siguiente
+              </Button>
+            </Box>
+          )}
       </Box>
     </Box>
   );

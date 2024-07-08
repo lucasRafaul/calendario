@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { TextField, Button, Box, Grid, Typography, CardMedia } from '@mui/material';
+import { TextField, Button, Box, Grid, Typography, CardMedia, buttonBaseClasses } from '@mui/material';
 import axios from 'axios';
 
-const ParticularForm = () => {
+const ParticularForm = ({talleres}) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
   const [formData, setFormData] = useState({
     nombreApellido: '',
     edad: '',
@@ -11,19 +12,6 @@ const ParticularForm = () => {
     telefono: '',
     email: '',
   });
-  const [comunidadData, setComunidadData] = useState(null);
-
-  useEffect(() => {
-    const fetchComunidadData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/comunidad_data');
-        setComunidadData(response.data);
-      } catch (error) {
-        console.error('Error fetching comunidad data:', error);
-      }
-    };
-    fetchComunidadData();
-  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +24,9 @@ const ParticularForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:3000/post/comunidad", formData);
+      await axios.post("http://localhost:3000/post/comunidad", {
+        ...formData, tallerId: talleres[currentIndex].id
+      });
       alert('El turno se agregó');
       setFormData({
         nombreApellido: '',
@@ -52,9 +42,18 @@ const ParticularForm = () => {
     }
   };
 
+  const handlePrevious = () => {
+    setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : talleres.length - 1));
+  };
+
+  const handleNext = () => {
+    setCurrentIndex((prevIndex) => (prevIndex < talleres.length - 1 ? prevIndex + 1 : 0));
+  };
+
+  const currentTaller = talleres[currentIndex];
+
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-      {comunidadData && (
         <Box sx={{ mb: 4, textAlign: 'center' }}>
           <Typography 
             variant="h5" 
@@ -74,13 +73,13 @@ const ParticularForm = () => {
               fontSize: '1.5rem',
             }}
           >
-            {comunidadData.titulo}
+            {currentTaller.titulo}
           </Typography>
           <CardMedia
             component="img"
-            alt={comunidadData.titulo}
-            image={comunidadData.imagen}
-            title={comunidadData.titulo}
+            alt={currentTaller.titulo}
+            image={currentTaller.imagen}
+            title={currentTaller.titulo}
             sx={{ 
               display: 'block', 
               margin: '0 auto', 
@@ -93,16 +92,13 @@ const ParticularForm = () => {
         <Grid item xs={12}>
           <TextField
             fullWidth
-            value={comunidadData.fecha}
+            value={currentTaller.fecha}  
             disabled
             sx={{ mb: 2 }}
           />
         </Grid>
         </Grid>
-          
         </Box>
-      )}
-        
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
@@ -174,6 +170,16 @@ const ParticularForm = () => {
         <Button variant="contained" color="primary" type="submit" sx={{ width: '120px' }}>
           Enviar
         </Button>
+        {talleres.length > 1 && (
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, mb: 2 }}>
+              <Button onClick={handlePrevious}>
+                Anterior
+              </Button>
+              <Button onClick={handleNext}>
+                Siguiente
+              </Button>
+            </Box>
+          )}
       </Box>
     </Box>
   );
