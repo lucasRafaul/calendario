@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, FormControlLabel, Checkbox } from '@mui/material';
 import CalendarDate from './CalendarDate';
+import Horario from './Horario';
 import axios from 'axios';
 
 const EducacionForm = () => {
@@ -19,6 +20,9 @@ const EducacionForm = () => {
     });
 
     const [calendarOpen, setCalendarOpen] = useState(false);
+    const [horarioOpen, setHorarioOpen] = useState(false);
+    const [showHorarioInput, setShowHorarioInput] = useState(false);
+    const [horariosOcupados, setHorariosOcupados] = useState([]);
 
     useEffect(() => {
         // Set default values here
@@ -47,19 +51,36 @@ const EducacionForm = () => {
         }
     };
 
-    const handleDateChange = (date) => {
+    const handleDateChange = async (date) => {
         const formattedDate = date.toLocaleDateString('es-ES'); 
         setFormData({
             ...formData,
             fechaVisita: formattedDate
         });
+        try {
+            const response = await axios.get(`http://localhost:3000/horarios/ocupados?fechaVisita=${formattedDate}`);
+            setHorariosOcupados(response.data.ocupados);
+        } catch (error) {
+            console.error('Error fetching occupied horarios:', error);
+        }
+        setHorarioOpen(true);
     };
 
     const handleHorarioChange = (horario) => {
-        setFormData({
-            ...formData,
+        setFormData(prevData => ({
+            ...prevData,
             horario
-        });
+        }));
+        setShowHorarioInput(true);
+        setHorarioOpen(false);
+    };
+
+    const handleHorarioInputClick = () => {
+        if (formData.fechaVisita) {
+            setHorarioOpen(true);
+        } else {
+            setCalendarOpen(true);
+        }
     };
 
     const handleSubmit =  async (e) => {
@@ -88,6 +109,7 @@ const EducacionForm = () => {
             fechaVisita: '',
             horario: ''
         });
+        setShowHorarioInput(false);
     };
 
     return (
@@ -188,7 +210,8 @@ const EducacionForm = () => {
                 onChange={handleChange}
                 required
             />
-            <TextField style={{marginBottom:'7px'}}
+            <TextField 
+                style={{marginBottom:'7px'}}
                 label="Fecha de la Visita"
                 variant="outlined"
                 fullWidth
@@ -199,18 +222,40 @@ const EducacionForm = () => {
                 onClick={() => setCalendarOpen(true)}
                 required
             />
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-            <Button variant="contained" color="primary" type="submit" sx={{ width: '120px' }}>
-                Enviar
-            </Button>
             
+            {showHorarioInput && (
+                <TextField 
+                    style={{marginBottom:'7px'}}
+                    label="Horario Seleccionado"
+                    variant="outlined"
+                    fullWidth
+                    name="horario"
+                    value={formData.horario}
+                    onClick={handleHorarioInputClick}
+                    InputProps={{
+                        readOnly: true,
+                    }}
+                />
+            )}
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+                <Button variant="contained" color="primary" type="submit" sx={{ width: '120px' }}>
+                    Enviar
+                </Button>
             </Box>
 
             <CalendarDate
                 open={calendarOpen}
                 onClose={() => setCalendarOpen(false)}
                 onDateClick={handleDateChange}
-                onHorarioChange={handleHorarioChange}
+                selectedDate={formData.fechaVisita}
+            />
+
+            <Horario 
+                open={horarioOpen} 
+                onClose={() => setHorarioOpen(false)} 
+                onHorarioChange={handleHorarioChange} 
+                horariosOcupados={horariosOcupados}
             />
         </Box>
     );

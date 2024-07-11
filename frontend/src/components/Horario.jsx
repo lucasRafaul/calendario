@@ -22,8 +22,11 @@ const Horario = ({ open, onClose, onHorarioChange, horariosOcupados }) => {
 
     // useEffect para cargar los horarios al montar el componente
     useEffect(() => {
-        fetchHorarios();
-    }, []);
+        if (open) {
+            fetchHorarios();
+            setSelectedHorario(''); // Reset selection when modal opens
+        }
+    }, [open]);
     
     // Controlador para el cambio en la selección de horario
     const handleChange = (e) => {
@@ -32,8 +35,10 @@ const Horario = ({ open, onClose, onHorarioChange, horariosOcupados }) => {
 
     // Controlador para confirmar la selección del horario
     const handleSelectHorario = () => {
-        onHorarioChange(selectedHorario);
-        onClose();
+        if (selectedHorario) {
+            onHorarioChange(selectedHorario);
+            onClose();
+        }
     };
 
     // Filtrar los horarios disponibles
@@ -44,12 +49,12 @@ const Horario = ({ open, onClose, onHorarioChange, horariosOcupados }) => {
             <DialogTitle>Seleccione un Horario</DialogTitle>
             <DialogContent>
             {horariosDisponibles.length > 0 ? (
-                    // Selector de horarios si hay disponibles
                     <>
                         <select
                             name="horarios"
                             id="horariosId"
                             onChange={handleChange}
+                            value={selectedHorario}
                             style={{
                                 width: '100%',
                                 padding: '10px',
@@ -60,8 +65,9 @@ const Horario = ({ open, onClose, onHorarioChange, horariosOcupados }) => {
                                 marginBottom: '20px',
                             }}
                         >
+                            <option value="">Seleccione un horario</option>
                             {horariosDisponibles.map(horario => (
-                                <option key={horario.id} value={horario.id} style={{ padding: '10px' }}>
+                                <option key={horario.id} value={horario.id}>
                                     {horario.descr}
                                 </option>
                             ))}
@@ -73,7 +79,6 @@ const Horario = ({ open, onClose, onHorarioChange, horariosOcupados }) => {
                         </DialogActions>
                     </>
                 ) : (
-                    // Mensaje si no hay horarios disponibles
                     <Typography variant="body1" color="error" align="center">
                         No hay horarios disponibles para esta fecha.
                     </Typography>
