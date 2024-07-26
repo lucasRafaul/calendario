@@ -20,7 +20,7 @@ const Horario = ({ open, onClose, onHorarioChange, horariosOcupados }) => {
         }
     }
 
-    // useEffect para cargar los horarios al montar el componente
+    // useEffect para cargar los horarios al montar el componente y cuando se altere el open
     useEffect(() => {
         if (open) {
             fetchHorarios();
