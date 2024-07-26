@@ -25,7 +25,8 @@ const ParticularForm = ({talleres}) => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:3000/post/comunidad", {
-        ...formData, tallerId: talleres[currentIndex].id
+        ...formData, tallerTitulo: talleres[currentIndex].titulo,
+        tallerFecha: talleres[currentIndex].fecha,
       });
       alert('El turno se agregó');
       setFormData({

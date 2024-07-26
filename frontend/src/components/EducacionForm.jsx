@@ -19,7 +19,7 @@ const EducacionForm = () => {
         horario: ''
     });
 
-    const [calendarOpen, setCalendarOpen] = useState(false);
+    const [calendarOpen, setCalendarOpen] = useState(falsse);
     const [horarioOpen, setHorarioOpen] = useState(false);
     const [showHorarioInput, setShowHorarioInput] = useState(false);
     const [horariosOcupados, setHorariosOcupados] = useState([]);

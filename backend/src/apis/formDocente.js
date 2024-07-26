@@ -4,14 +4,14 @@ import db from "../db/conexion.js";
 export async function PostTurnoDocente(request) {
     const data = request.body;
     console.log(data)
-    const campos = "nom_apellido, escuela, dni, email, telefono, taller_titulo, taller_fecha"
-    await db.execute("INSERT INTO inscripciones_docentes ("+campos+") VALUES (?, ?, ?, ?, ?, ?, ?)", 
+    const campos = "nombre_apellido, escuela, dni_docente, email, telefono, taller_titulo, taller_fecha"
+    await db.execute("INSERT INTO inscripciones_docente ("+campos+") VALUES (?, ?, ?, ?, ?, ?,?)", 
         [data.nombreApellido, data.escuela, data.dni, data.email, data.telefono, data.tallerTitulo, data.tallerFecha]);
 }
 
 export async function getDocenteData() {
     try {
-        const [rows] = await db.execute("SELECT * FROM docente");
+        const [rows] = await db.execute("SELECT * FROM talleres_docentes");
         if (rows.length > 0) {
             return rows;
         } else {

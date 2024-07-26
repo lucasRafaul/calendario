@@ -3,13 +3,13 @@ import db from "../db/conexion.js";
 export async function PostTurno(request) {
     const data = request.body;
     console.log(data)
-    const campos = "cue, nom_escuela, nom_localidad, nom_director, grado, turno, cant_alu, telefono, email,fe_visita, horario"
-    await db.execute("INSERT INTO escuela ("+campos+") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
+    const campos = "cue, nombre_escuela, localidad_escuela, nombre_director, grado_escuela, turno, cantidad_alumnos, telefono, email,fecha, horario"
+    await db.execute("INSERT INTO escuelas ("+campos+") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", 
         [data.cue, data.nombreEscuela, data.localidadEscuela, data.nombreDirector, data.grado, data.turno, data.cantAlumnos, data.telefono, data.email, data.fechaVisita, data.horario]);
 }
 
 async function GetEscuela() {
-    const [row] = await db.execute("SELECT * FROM escuela");
+    const [row] = await db.execute("SELECT * FROM escuelas");
     return row
 }
 
@@ -27,7 +27,7 @@ async function GetHorarios() {
 export async function horarioDisponible(id, fechaVisita) {
     try {
         const [rows] = await db.execute(
-            "SELECT COUNT(*) AS count FROM escuela WHERE horario = ? AND fe_visita = ?",
+            "SELECT COUNT(*) AS count FROM escuelas WHERE horario = ? AND fecha = ?",
             [id, fechaVisita]
         );
 
@@ -41,7 +41,7 @@ export async function horarioDisponible(id, fechaVisita) {
 
 export async function getHorariosOcupados(fechaVisita){
     try{
-        const [rows] = await db.execute("SELECT horario FROM escuela WHERE fe_visita = ? ", [fechaVisita]);
+        const [rows] = await db.execute("SELECT horario FROM escuelas WHERE fecha = ? ", [fechaVisita]);
         return rows.map(row => row.horario)
     }
     catch(error){
@@ -52,7 +52,7 @@ export async function getHorariosOcupados(fechaVisita){
 
 export async function getFechasOcupadas() {
     try {
-        const [rows] = await db.execute("SELECT fe_visita FROM escuela GROUP BY fe_visita HAVING COUNT(DISTINCT horario) >=4")
+        const [rows] = await db.execute("SELECT fecha FROM escuelas GROUP BY fecha HAVING COUNT(DISTINCT horario) >=4")
         return rows.map(row => row.fe_visita)
     } catch(error) {
         console.error('Error al cargar las fechas sin horarios: ', error);
