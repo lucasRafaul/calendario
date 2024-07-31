@@ -9,22 +9,25 @@ const CalendarDate = ({ open, onClose, onDateClick, selectedDate }) => {
     const [fechasSinHorarios, setFechasSinHorarios] = useState([]);
     const [currentDate, setCurrentDate] = useState(null);
 
+    const fetchFechasSinHorarios = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/fechas-sin-horarios');
+            console.log(response.data.fechasSinHorarios);
+            const fechas = response.data.fechasSinHorarios.map(date => date.toString());
+            setFechasSinHorarios(fechas);
+        } catch (error) {
+            console.error('Error fetching fechas sin horarios:', error);
+        }
+    };
+
     useEffect(() => {
-        const fetchFechasSinHorarios = async () => {
-            try {
-                const response = await axios.get('http://localhost:3000/fechas-sin-horarios');
-                const fechas = response.data.fechasSinHorarios.map(date => date.toString());
-                setFechasSinHorarios(fechas);
-            } catch (error) {
-                console.error('Error fetching fechas sin horarios:', error);
-            }
-        };
         fetchFechasSinHorarios();
     }, []);
 
     useEffect(() => {
         if (selectedDate) {
             setCurrentDate(new Date(selectedDate.split('/').reverse().join('-')));
+            console.log(selectedDate);
         }
     }, [selectedDate]);
 

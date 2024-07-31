@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, Box, Grid, Typography, CardMedia, buttonBaseClasses } from '@mui/material';
+import React, { useState } from 'react';
+import { TextField, Button, Box, Grid, Typography, CardMedia, IconButton } from '@mui/material';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import axios from 'axios';
 
 const ParticularForm = ({talleres}) => {
@@ -76,19 +78,22 @@ const ParticularForm = ({talleres}) => {
           >
             {currentTaller.titulo}
           </Typography>
-          <CardMedia
-            component="img"
-            alt={currentTaller.titulo}
-            image={currentTaller.imagen}
-            title={currentTaller.titulo}
-            sx={{ 
-              display: 'block', 
-              margin: '0 auto', 
-              maxWidth: '35%', 
-              height: 'auto', 
-              marginBottom: 2  
-            }}
-          />
+          {currentTaller.imagen && (
+                      <CardMedia
+                      component="img"
+                      alt={currentTaller.titulo}
+                      image={currentTaller.imagen}
+                      title={currentTaller.titulo}
+                      sx={{ 
+                        display: 'block', 
+                        margin: '0 auto', 
+                        maxWidth: '35%', 
+                        height: 'auto', 
+                        marginBottom: 2  
+                      }}
+                    />
+          )}
+
          <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
@@ -100,6 +105,7 @@ const ParticularForm = ({talleres}) => {
         </Grid>
         </Grid>
         </Box>
+        
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <TextField
@@ -167,20 +173,28 @@ const ParticularForm = ({talleres}) => {
           />
         </Grid>
       </Grid>
-      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-        <Button variant="contained" color="primary" type="submit" sx={{ width: '120px' }}>
+      
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mt: 3, gap: 2 }}>
+        {talleres.length > 1 && (
+          <IconButton onClick={handlePrevious} color="primary">
+            <ArrowBackIosIcon />
+          </IconButton>
+        )}
+        
+        <Button 
+          variant="contained" 
+          color="primary" 
+          type="submit" 
+          sx={{ minWidth: '120px' }}
+        >
           Enviar
         </Button>
+
         {talleres.length > 1 && (
-            <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 2, mb: 2 }}>
-              <Button onClick={handlePrevious}>
-                Anterior
-              </Button>
-              <Button onClick={handleNext}>
-                Siguiente
-              </Button>
-            </Box>
-          )}
+          <IconButton onClick={handleNext} color="primary">
+            <ArrowForwardIosIcon />
+          </IconButton>
+        )}
       </Box>
     </Box>
   );

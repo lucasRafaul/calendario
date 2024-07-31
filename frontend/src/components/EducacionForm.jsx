@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { TextField, Button, Box, FormControlLabel, Checkbox } from '@mui/material';
+import React, { useState} from 'react';
+import { TextField, Button, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import CalendarDate from './CalendarDate';
 import Horario from './Horario';
 import axios from 'axios';
@@ -11,7 +11,7 @@ const EducacionForm = () => {
         localidadEscuela: '',
         nombreDirector: '',
         grado: '',
-        turno: '',
+        turno: 'Mañana',
         cantAlumnos: '',
         telefono: '',
         email: '',
@@ -19,44 +19,43 @@ const EducacionForm = () => {
         horario: ''
     });
 
-    const [calendarOpen, setCalendarOpen] = useState(falsse);
+    const [errors, setErrors] = useState({});
+    const [calendarOpen, setCalendarOpen] = useState(false);
     const [horarioOpen, setHorarioOpen] = useState(false);
     const [showHorarioInput, setShowHorarioInput] = useState(false);
     const [horariosOcupados, setHorariosOcupados] = useState([]);
 
-    useEffect(() => {
-        // Set default values here
-        setFormData(prevData => ({
-            ...prevData,
-            turno: 'Mañana',
-            cantAlumnos: '',  
-        }));
-    }, []);
+    const validateField = (name, value) => {
+        let error = '';
+        switch (name) {
+            case 'cue':
+                if (!/^\d+$/.test(value) || value.length < 1) error = 'CUE debe ser un número válido';
+                break;
+            case 'cantAlumnos':
+                if (value < 1 || value > 25) error = 'Cantidad de Alumnos debe ser entre 1 y 25';
+                break;
+                case 'telefono':
+                    if (!/^\+?[\d\s()-]{7,}$/.test(value)) error = 'Teléfono debe ser un número válido';
+                    break;
+            case 'email':
+                if (!/\S+@\S+\.\S+/.test(value)) error = 'Email inválido';
+                break;
+            default:
+                break;
+        }
+        return error;
+    };
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        if (name === 'cantAlumnos') {
-            // Asegurarse de que el valor sea un número
-            if (/^\d*$/.test(value)) {
-                setFormData((prevFormData) => ({
-                    ...prevFormData,
-                    [name]: value === '' ? 0 : Number(value)
-                }));
-            }
-        } else {
-            setFormData((prevFormData) => ({
-                ...prevFormData,
-                [name]: value
-            }));
-        }
+        const error = validateField(name, value);
+        setErrors(prev => ({ ...prev, [name]: error }));
+        setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     const handleDateChange = async (date) => {
         const formattedDate = date.toLocaleDateString('es-ES'); 
-        setFormData({
-            ...formData,
-            fechaVisita: formattedDate
-        });
+        setFormData(prev => ({ ...prev, fechaVisita: formattedDate }));
         try {
             const response = await axios.get(`http://localhost:3000/horarios/ocupados?fechaVisita=${formattedDate}`);
             setHorariosOcupados(response.data.ocupados);
@@ -67,69 +66,74 @@ const EducacionForm = () => {
     };
 
     const handleHorarioChange = (horario) => {
-        setFormData(prevData => ({
-            ...prevData,
-            horario
-        }));
+        setFormData(prev => ({ ...prev, horario }));
         setShowHorarioInput(true);
         setHorarioOpen(false);
     };
 
     const handleHorarioInputClick = () => {
-        if (formData.fechaVisita) {
-            setHorarioOpen(true);
-        } else {
-            setCalendarOpen(true);
-        }
+        formData.fechaVisita ? setHorarioOpen(true) : setCalendarOpen(true);
     };
 
-    const handleSubmit =  async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         if (!formData.horario) {
             alert('Por favor, seleccione un horario');
             return;
-          }
-        try{
-            await axios.post("http://localhost:3000/post", formData);
-            alert('el turno se agrego');
-        }catch(error){
-            console.error('error al enviar el formulario',error);
-            alert('error al cargar');
         }
-        setFormData({
-            cue: '',
-            nombreEscuela: '',
-            localidadEscuela: '',
-            nombreDirector: '',
-            grado: '',
-            turno: '',
-            cantAlumnos: '',
-            telefono: '',
-            email: '',
-            fechaVisita: '',
-            horario: ''
-        });
-        setShowHorarioInput(false);
+
+        const formErrors = Object.keys(formData).reduce((acc, key) => {
+
+            const error = validateField(key, formData[key]);
+            if (error) acc[key] = error;
+            return acc;
+        }, {});
+
+        if (Object.keys(formErrors).length > 0) {
+            setErrors(formErrors);
+            alert('Por favor, corrija los errores antes de enviar el formulario.');
+            return;
+        }
+
+        try {
+            await axios.post("http://localhost:3000/post", formData);
+            alert('El turno se agregó');
+            setFormData({
+                cue: '',
+                nombreEscuela: '',
+                localidadEscuela: '',
+                nombreDirector: '',
+                grado: '',
+                turno: 'Mañana',
+                cantAlumnos: '',
+                telefono: '',
+                email: '',
+                fechaVisita: '',
+                horario: ''
+            });
+            setShowHorarioInput(false);
+            setErrors({});
+        } catch (error) {
+            console.error('Error al enviar el formulario', error);
+            alert('Error al cargar. Por favor, intente nuevamente.');
+        }
     };
 
     return (
-        <Box 
-            component="form"
-            autoComplete="on"
-            onSubmit={handleSubmit}
-            action="http://localhost:3000/post"
-            method='POST'
-        >
-            <TextField style={{marginBottom:'7px', marginTop:'5px' }}
+        <Box component="form"  onSubmit={handleSubmit} sx={{ '& .MuiTextField-root': { m: 1 } }}>
+            <TextField
                 label="CUE"
                 variant="outlined"
                 fullWidth
                 name="cue"
+                type="number"
                 value={formData.cue}
                 onChange={handleChange}
+                error={!!errors.cue}
+                helperText={errors.cue}
                 required
             />
-            <TextField style={{marginBottom:'7px'}}
+            <TextField
                 label="Nombre de la Escuela"
                 variant="outlined"
                 fullWidth
@@ -138,7 +142,7 @@ const EducacionForm = () => {
                 onChange={handleChange}
                 required
             />
-            <TextField style={{marginBottom:'7px'}}
+            <TextField
                 label="Localidad de la Escuela"
                 variant="outlined"
                 fullWidth
@@ -147,7 +151,7 @@ const EducacionForm = () => {
                 onChange={handleChange}
                 required
             />
-            <TextField style={{marginBottom:'7px'}}
+            <TextField
                 label="Nombre del Director"
                 variant="outlined"
                 fullWidth
@@ -156,7 +160,7 @@ const EducacionForm = () => {
                 onChange={handleChange}
                 required
             />
-            <TextField style={{marginBottom:'7px'}}
+            <TextField
                 label="Grado"
                 variant="outlined"
                 fullWidth
@@ -165,23 +169,21 @@ const EducacionForm = () => {
                 onChange={handleChange}
                 required
             />
-            <TextField style={{ marginBottom: '7px' }}
-                select
-                label="Turno"
-                variant="outlined"
-                fullWidth
-                name="turno"
-                defaultValue={formData.turno}
-                onChange={handleChange}
-                required
-                SelectProps={{
-                    native: true,
-                }}
-            >
-                <option value="Mañana">Mañana</option>
-                <option value="Tarde">Tarde</option>
-            </TextField>
-            <TextField style={{marginBottom:'7px'}}
+            <FormControl fullWidth variant="outlined" sx={{ m: 1 }}>
+                <InputLabel id="turno-label">Turno</InputLabel>
+                <Select
+                    labelId="turno-label"
+                    id="turno"
+                    value={formData.turno}
+                    onChange={handleChange}
+                    label="Turno"
+                    name="turno"
+                >
+                    <MenuItem value="Mañana">Mañana</MenuItem>
+                    <MenuItem value="Tarde">Tarde</MenuItem>
+                </Select>
+            </FormControl>
+            <TextField
                 label="Cantidad de Alumnos"
                 variant="outlined"
                 fullWidth
@@ -189,43 +191,54 @@ const EducacionForm = () => {
                 type="number"
                 value={formData.cantAlumnos}
                 onChange={handleChange}
-                InputProps={{inputProps:{min: 1, max:25}}}
+                error={!!errors.cantAlumnos}
+                helperText={errors.cantAlumnos}
+                InputProps={{inputProps: { min: 1, max: 25 }}}
                 required
             />
-            <TextField style={{marginBottom:'7px'}}
+            <TextField
                 label="Teléfono"
                 variant="outlined"
                 fullWidth
                 name="telefono"
+                type="tel"
                 value={formData.telefono}
                 onChange={handleChange}
+                error={!!errors.telefono}
+                helperText={errors.telefono}
                 required
+                inputProps={{
+                    pattern: "^\\+?[\\d\\s()-]{7,}$",
+                    title: "Ingrese un número de teléfono válido"
+                }}
             />
-            <TextField style={{marginBottom:'7px'}}
+            <TextField
                 label="Email"
                 variant="outlined"
                 fullWidth
                 name="email"
+                type="email"
                 value={formData.email}
                 onChange={handleChange}
+                error={!!errors.email}
+                helperText={errors.email}
                 required
             />
             <TextField 
-                style={{marginBottom:'7px'}}
                 label="Fecha de la Visita"
                 variant="outlined"
                 fullWidth
                 name="fechaVisita"
-                placeholder="dd/mm/yyyy"
                 value={formData.fechaVisita}
-                onChange={handleChange}
                 onClick={() => setCalendarOpen(true)}
+                InputProps={{
+                    readOnly: true,
+                }}
                 required
             />
             
             {showHorarioInput && (
                 <TextField 
-                    style={{marginBottom:'7px'}}
                     label="Horario Seleccionado"
                     variant="outlined"
                     fullWidth
@@ -262,7 +275,3 @@ const EducacionForm = () => {
 };
 
 export default EducacionForm;
-
-
-
-

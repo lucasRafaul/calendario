@@ -19,7 +19,6 @@ async function GetHorarios() {
         { id: 'manana_2', descr: 'Mañana 2' },
         { id: 'tarde_1', descr: 'Tarde 1' },
         { id: 'tarde_2', descr: 'Tarde 2' },
-        // Add more time slots as needed
     ];
     return horarios;
 }
@@ -53,7 +52,7 @@ export async function getHorariosOcupados(fechaVisita){
 export async function getFechasOcupadas() {
     try {
         const [rows] = await db.execute("SELECT fecha FROM escuelas GROUP BY fecha HAVING COUNT(DISTINCT horario) >=4")
-        return rows.map(row => row.fe_visita)
+        return rows.map(row => row.fecha)
     } catch(error) {
         console.error('Error al cargar las fechas sin horarios: ', error);
         throw new Error('Error al cargar las fechas sin horarios');
