@@ -1,8 +1,8 @@
-.no-horarios-day {
+.no-horarios {
   position: relative;
 }
 
-.no-horarios-day::after {
+.no-horarios::after {
   content: '';
   position: absolute;
   top: 5px;

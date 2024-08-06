@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, Container, Card, CardContent, Typography, MenuItem, Select, FormControl, Box } from '@mui/material';
 import EducacionForm from './components/EducacionForm';
-import ParticularForm from './components/ParticularForm';
+import ComunidadForm from './components/ComunidadForm';
 import DocenteForm from './components/DocenteForm';
 import axios from 'axios';
 
@@ -13,7 +13,7 @@ function App() {
   const [docenteData, setDocenteData] = useState(null);
 
 
-  async function checkCourses() {
+  async function hayTalleres() {
     try {
       const comunidadResponse = await axios.get('http://localhost:3000/comunidad_data');
       setComunidadData(comunidadResponse.data);
@@ -33,7 +33,7 @@ function App() {
 
   // useEffect para verificar la existencia de cursos al cargar el componente
   useEffect(() => {
-    checkCourses();
+    hayTalleres();
   }, []);
 
   // Controlador de eventos para cambio en el formulario, pone el formActual al valor "educacion"
@@ -82,13 +82,13 @@ function App() {
                 value={formActual === 'taller Docente' || formActual === 'taller Comunidad' ? formActual : ''}
                 displayEmpty
                 onChange={handleComunidadChange}
-                renderValue={(selected) => selected || "Abierto a la Comunidad"}
+                renderValue={(selected) => selected || "Talleres Abiertos a la Comunidad"}
               >
                 <MenuItem value="" disabled>
-                  Abierto a la Comunidad
+                  Talleres Abiertos a la Comunidad
                 </MenuItem>
-                <MenuItem value="taller Docente">Taller Docentes</MenuItem>
-                <MenuItem value="taller Comunidad">Taller Comunidad</MenuItem>
+                <MenuItem value="taller Docente">Talleres Docentes</MenuItem>
+                <MenuItem value="taller Comunidad">Talleres Comunidad</MenuItem>
               </Select>
             </FormControl>
             {/* Renderizado condicional de formularios */}
@@ -99,7 +99,7 @@ function App() {
                   Próximamente
                 </Typography>
               ))}
-              {formActual === 'taller Comunidad' && (comunidadData ? <ParticularForm talleres={comunidadData}/> : (
+              {formActual === 'taller Comunidad' && (comunidadData ? <ComunidadForm talleres={comunidadData}/> : (
                 <Typography variant="h4" align="center">
                   Próximamente
                 </Typography>

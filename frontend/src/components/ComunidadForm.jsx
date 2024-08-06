@@ -4,7 +4,7 @@ import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import axios from 'axios';
 
-const ParticularForm = ({talleres}) => {
+const ComunidadForm = ({talleres}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [formData, setFormData] = useState({
     nombreApellido: '',
@@ -200,4 +200,4 @@ const ParticularForm = ({talleres}) => {
   );
 };
 
-export default ParticularForm;
+export default ComunidadForm;

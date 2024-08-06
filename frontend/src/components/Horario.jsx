@@ -15,7 +15,7 @@ const Horario = ({ open, onClose, onHorarioChange, horariosOcupados }) => {
             const response = await axios.get('http://localhost:3000/get_horarios');
             setHorarios(response.data);
         } catch (error) {
-            console.error('Error fetching horarios:', error);
+            console.error('Error al traer los horarios:', error);
             // Aquí se podría manejar el error, por ejemplo, mostrando un mensaje al usuario
         }
     }

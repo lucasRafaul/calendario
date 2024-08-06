@@ -5,7 +5,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import axios from 'axios';
 
 const DocenteForm = ({talleres}) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [index, setIndex] = useState(0);
   const [formData, setFormData] = useState({
     nombreApellido: '',
     escuela: '',
@@ -26,8 +26,8 @@ const DocenteForm = ({talleres}) => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:3000/post/docente",{
-        ...formData, tallerTitulo: talleres[currentIndex].titulo,
-        tallerFecha: talleres[currentIndex].fecha,
+        ...formData, tallerTitulo: talleres[index].titulo,
+        tallerFecha: talleres[index].fecha,
       });
       alert('El turno se agregó');
       setFormData({
@@ -43,11 +43,11 @@ const DocenteForm = ({talleres}) => {
     }
   };
   const handlePrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : talleres.length - 1));
+    setIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : talleres.length - 1));
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex < talleres.length - 1 ? prevIndex + 1 : 0));
+    setIndex((prevIndex) => (prevIndex < talleres.length - 1 ? prevIndex + 1 : 0));
   };
 
   return (
@@ -71,14 +71,14 @@ const DocenteForm = ({talleres}) => {
               fontSize: '1.5rem', 
             }}
           >
-            {talleres[currentIndex].titulo}
+            {talleres[index].titulo}
           </Typography>
-          {talleres[currentIndex].imagen && (
+          {talleres[index].imagen && (
                       <CardMedia
                       component="img"
-                      alt={talleres[currentIndex].titulo}
-                      image={talleres[currentIndex].imagen}
-                      title={talleres[currentIndex].titulo}
+                      alt={talleres[index].titulo}
+                      image={talleres[index].imagen}
+                      title={talleres[index].titulo}
                       sx={{ 
                         display: 'block', 
                         margin: '0 auto', 

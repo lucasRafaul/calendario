@@ -14,7 +14,7 @@ export async function getComunidadData() {
         if (rows.length > 0) {
             return rows;
         } else {
-            throw new Error('No comunidad talleres found');
+            throw new Error('No se encontraron talleres comunidad');
         }
     } catch (error) {
         console.error('Error fetching comunidad data:', error);

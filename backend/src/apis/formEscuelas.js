@@ -31,10 +31,10 @@ export async function horarioDisponible(id, fechaVisita) {
         );
 
         const count = rows[0].count;
-        return count === 0; // Retorna verdadera si disponible, falso sino.
+        return count === 0; 
     } catch (error) {
-        console.error('Error checking horario availability:', error);
-        throw new Error('Error checking horario availability');
+        console.error('Error al chequear la disponibilidad del horario:', error);
+        throw new Error('Error al chequear la disponibilidad del horario');
     }
 }
 

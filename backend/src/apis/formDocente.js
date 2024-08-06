@@ -15,7 +15,7 @@ export async function getDocenteData() {
         if (rows.length > 0) {
             return rows;
         } else {
-            throw new Error('No docente talleres found');
+            throw new Error('No se encontraron talleres docentes');
         }
     } catch (error) {
         console.error('Error fetching docente data:', error);

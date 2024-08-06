@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react';
 import { Dialog, DialogTitle, DialogContent } from '@mui/material';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
-import './CalendarDate.css';
+import './Calendario.css';
 import axios from 'axios';
 
-const CalendarDate = ({ open, onClose, onDateClick, selectedDate }) => {
+const Calendario = ({ open, onClose, onDateClick, selectedDate }) => {
     const [fechasSinHorarios, setFechasSinHorarios] = useState([]);
-    const [currentDate, setCurrentDate] = useState(null);
+    const [diaActual, setDiaActual] = useState(null);
 
     const fetchFechasSinHorarios = async () => {
         try {
@@ -16,7 +16,7 @@ const CalendarDate = ({ open, onClose, onDateClick, selectedDate }) => {
             const fechas = response.data.fechasSinHorarios.map(date => date.toString());
             setFechasSinHorarios(fechas);
         } catch (error) {
-            console.error('Error fetching fechas sin horarios:', error);
+            console.error('Error al traer fechas sin horarios:', error);
         }
     };
 
@@ -26,8 +26,8 @@ const CalendarDate = ({ open, onClose, onDateClick, selectedDate }) => {
 
     useEffect(() => {
         if (selectedDate) {
-            setCurrentDate(new Date(selectedDate.split('/').reverse().join('-')));
-            console.log(selectedDate);
+            const [day, month, year] = selectedDate.split('/');
+            setDiaActual(new Date(year, month - 1, day));
         }
     }, [selectedDate]);
 
@@ -37,7 +37,7 @@ const CalendarDate = ({ open, onClose, onDateClick, selectedDate }) => {
             alert('No atendemos fines de semana');
             return;
         }
-        setCurrentDate(date);
+        setDiaActual(date);
         onDateClick(date);
         onClose();
     };
@@ -58,9 +58,13 @@ const CalendarDate = ({ open, onClose, onDateClick, selectedDate }) => {
                 return '';  
             }
 
-            const formattedDate = date.toLocaleDateString('es-ES');
+            const formattedDate = new Intl.DateTimeFormat('es-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            }).format(date);
             if (fechasSinHorarios.includes(formattedDate)) {
-                return 'no-horarios-day';
+                return 'no-horarios';
             }
         }
         return '';
@@ -75,11 +79,11 @@ const CalendarDate = ({ open, onClose, onDateClick, selectedDate }) => {
                         locale='es' 
                         tileDisabled={tileDisabled} 
                         tileClassName={tileClassName}
-                        value={currentDate}
+                        value={diaActual}
                     />
                 </DialogContent>
             </Dialog>
     );
 };
 
-export default CalendarDate;
+export default Calendario;

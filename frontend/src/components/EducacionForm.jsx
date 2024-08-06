@@ -1,6 +1,6 @@
 import React, { useState} from 'react';
 import { TextField, Button, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
-import CalendarDate from './CalendarDate';
+import Calendario from './Calendario';
 import Horario from './Horario';
 import axios from 'axios';
 
@@ -19,13 +19,13 @@ const EducacionForm = () => {
         horario: ''
     });
 
-    const [errors, setErrors] = useState({});
-    const [calendarOpen, setCalendarOpen] = useState(false);
+    const [errores, setErrores] = useState({});
+    const [calendarioOpen, setCalendarioOpen] = useState(false);
     const [horarioOpen, setHorarioOpen] = useState(false);
-    const [showHorarioInput, setShowHorarioInput] = useState(false);
+    const [mostrarHorarioInput, setMostrarHorarioInput] = useState(false);
     const [horariosOcupados, setHorariosOcupados] = useState([]);
 
-    const validateField = (name, value) => {
+    const validarCampo = (name, value) => {
         let error = '';
         switch (name) {
             case 'cue':
@@ -48,49 +48,54 @@ const EducacionForm = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        const error = validateField(name, value);
-        setErrors(prev => ({ ...prev, [name]: error }));
+        const error = validarCampo(name, value);
+        setErrores(prev => ({ ...prev, [name]: error }));
         setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     const handleDateChange = async (date) => {
-        const formattedDate = date.toLocaleDateString('es-ES'); 
+        const formattedDate = new Intl.DateTimeFormat('es-ES', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+        }).format(date);
         setFormData(prev => ({ ...prev, fechaVisita: formattedDate }));
         try {
             const response = await axios.get(`http://localhost:3000/horarios/ocupados?fechaVisita=${formattedDate}`);
             setHorariosOcupados(response.data.ocupados);
         } catch (error) {
-            console.error('Error fetching occupied horarios:', error);
+            console.error('Error al trear los horarios ocupados:', error);
         }
         setHorarioOpen(true);
     };
 
     const handleHorarioChange = (horario) => {
         setFormData(prev => ({ ...prev, horario }));
-        setShowHorarioInput(true);
+        setMostrarHorarioInput(true);
         setHorarioOpen(false);
     };
 
     const handleHorarioInputClick = () => {
-        formData.fechaVisita ? setHorarioOpen(true) : setCalendarOpen(true);
+        formData.fechaVisita ? setHorarioOpen(true) : setCalendarioOpen(true);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(formData)
         if (!formData.horario) {
             alert('Por favor, seleccione un horario');
             return;
         }
 
-        const formErrors = Object.keys(formData).reduce((acc, key) => {
+        const formErrores = Object.keys(formData).reduce((acc, key) => {
 
-            const error = validateField(key, formData[key]);
+            const error = validarCampo(key, formData[key]);
             if (error) acc[key] = error;
             return acc;
         }, {});
 
-        if (Object.keys(formErrors).length > 0) {
-            setErrors(formErrors);
+        if (Object.keys(formErrores).length > 0) {
+            setErrores(formErrores);
             alert('Por favor, corrija los errores antes de enviar el formulario.');
             return;
         }
@@ -111,8 +116,8 @@ const EducacionForm = () => {
                 fechaVisita: '',
                 horario: ''
             });
-            setShowHorarioInput(false);
-            setErrors({});
+            setMostrarHorarioInput(false);
+            setErrores({});
         } catch (error) {
             console.error('Error al enviar el formulario', error);
             alert('Error al cargar. Por favor, intente nuevamente.');
@@ -129,8 +134,8 @@ const EducacionForm = () => {
                 type="number"
                 value={formData.cue}
                 onChange={handleChange}
-                error={!!errors.cue}
-                helperText={errors.cue}
+                error={!!errores.cue}
+                helperText={errores.cue}
                 required
             />
             <TextField
@@ -191,8 +196,8 @@ const EducacionForm = () => {
                 type="number"
                 value={formData.cantAlumnos}
                 onChange={handleChange}
-                error={!!errors.cantAlumnos}
-                helperText={errors.cantAlumnos}
+                error={!!errores.cantAlumnos}
+                helperText={errores.cantAlumnos}
                 InputProps={{inputProps: { min: 1, max: 25 }}}
                 required
             />
@@ -204,8 +209,8 @@ const EducacionForm = () => {
                 type="tel"
                 value={formData.telefono}
                 onChange={handleChange}
-                error={!!errors.telefono}
-                helperText={errors.telefono}
+                error={!!errores.telefono}
+                helperText={errores.telefono}
                 required
                 inputProps={{
                     pattern: "^\\+?[\\d\\s()-]{7,}$",
@@ -220,8 +225,8 @@ const EducacionForm = () => {
                 type="email"
                 value={formData.email}
                 onChange={handleChange}
-                error={!!errors.email}
-                helperText={errors.email}
+                error={!!errores.email}
+                helperText={errores.email}
                 required
             />
             <TextField 
@@ -230,14 +235,14 @@ const EducacionForm = () => {
                 fullWidth
                 name="fechaVisita"
                 value={formData.fechaVisita}
-                onClick={() => setCalendarOpen(true)}
+                onClick={() => setCalendarioOpen(true)}
                 InputProps={{
                     readOnly: true,
                 }}
                 required
             />
             
-            {showHorarioInput && (
+            {mostrarHorarioInput && (
                 <TextField 
                     label="Horario Seleccionado"
                     variant="outlined"
@@ -257,9 +262,9 @@ const EducacionForm = () => {
                 </Button>
             </Box>
 
-            <CalendarDate
-                open={calendarOpen}
-                onClose={() => setCalendarOpen(false)}
+            <Calendario
+                open={calendarioOpen}
+                onClose={() => setCalendarioOpen(false)}
                 onDateClick={handleDateChange}
                 selectedDate={formData.fechaVisita}
             />
