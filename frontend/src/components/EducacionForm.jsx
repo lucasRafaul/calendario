@@ -1,7 +1,10 @@
-import React, { useState} from 'react';
-import { TextField, Button, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import React, { useState, useEffect} from 'react';
+import { TextField, Button, Box, FormControl, InputLabel, Select, MenuItem, Checkbox, FormControlLabel, Autocomplete} from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 import Calendario from './Calendario';
 import Horario from './Horario';
+import pdf from '/ejemplopdf.pdf';
+import PdfDownloadComponent from './Pdf';
 import axios from 'axios';
 
 const EducacionForm = () => {
@@ -24,7 +27,59 @@ const EducacionForm = () => {
     const [horarioOpen, setHorarioOpen] = useState(false);
     const [mostrarHorarioInput, setMostrarHorarioInput] = useState(false);
     const [horariosOcupados, setHorariosOcupados] = useState([]);
+    const [cueData, setCueData] = useState([]);
+    const [filteredCueData, setFilteredCueData] = useState([]);
 
+    useEffect(() => {
+        fetchCueData();
+    }, []);
+    
+    const fetchCueData = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/api/cue');
+            setCueData(response.data);
+            setFilteredCueData(response.data);
+        } catch (error) {
+            console.error('Error fetching CUE data:', error);
+        }
+    };
+
+    const normalizeString = (str) => {
+        return str
+            .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Remove accents
+            .replace(/[^a-z0-9\s]/g, '') // Remove special characters
+            .replace(/\s+/g, ' ') // Replace multiple spaces with a single space
+            .trim(); // Remove leading and trailing spaces
+    };
+
+    const handleCueInputChange = (event, value) => {
+        const inputCue = value;
+        const filtered = cueData.filter(item =>{
+            const normalizedNombreEscuela = normalizeString(item.nombre_escuela);
+            const normalizedCue = normalizeString(item.id_cue);
+            const normalizedLocalidad = normalizeString(item.localidad);
+            
+            return normalizedNombreEscuela.includes(inputCue) ||
+                   normalizedCue.includes(inputCue) ||
+                   normalizedLocalidad.includes(inputCue);
+        });
+        setFilteredCueData(filtered);
+        setFormData(prev => ({ ...prev, cue: value }));
+    };
+
+    const handleCueSelect = (event, value) => {
+        if (value) {
+            setFormData(prev => ({
+                ...prev,
+                cue: value.id_cue,
+                nombreEscuela: value.nombre_escuela,
+                localidadEscuela: value.localidad
+            }));
+        }
+    };
+
+
+    
     const validarCampo = (name, value) => {
         let error = '';
         switch (name) {
@@ -126,17 +181,19 @@ const EducacionForm = () => {
 
     return (
         <Box component="form"  onSubmit={handleSubmit} sx={{ '& .MuiTextField-root': { m: 1 } }}>
-            <TextField
-                label="CUE"
-                variant="outlined"
-                fullWidth
-                name="cue"
-                type="number"
-                value={formData.cue}
-                onChange={handleChange}
-                error={!!errores.cue}
-                helperText={errores.cue}
-                required
+            <Autocomplete
+                options={filteredCueData}
+                getOptionLabel={(option) => `${option.id_cue} - ${option.nombre_escuela}`}
+                renderInput={(params) => <TextField {...params} label="CUE" variant="outlined" fullWidth />}
+                onInputChange={handleCueInputChange}
+                onChange={handleCueSelect}
+                isOptionEqualToValue={(option, value) => option.id_cue === value.id_cue}
+                renderOption={(props, option) => (
+                    <li {...props}>
+                        <div>{option.id_cue} - {option.nombre_escuela}</div>
+                        <div style={{fontSize: '0.8em', color: 'gray'}}>{option.localidad}</div>
+                    </li>
+                )}
             />
             <TextField
                 label="Nombre de la Escuela"
@@ -145,6 +202,9 @@ const EducacionForm = () => {
                 name="nombreEscuela"
                 value={formData.nombreEscuela}
                 onChange={handleChange}
+                InputProps={{
+                    readOnly: true,
+                }}
                 required
             />
             <TextField
@@ -154,6 +214,9 @@ const EducacionForm = () => {
                 name="localidadEscuela"
                 value={formData.localidadEscuela}
                 onChange={handleChange}
+                InputProps={{
+                    readOnly: true,
+                }}
                 required
             />
             <TextField
@@ -256,8 +319,20 @@ const EducacionForm = () => {
                 />
             )}
 
+            <Box sx={{ display: 'flex', justifyContent: 'left', mt: 2 }}>
+                <FormControlLabel required control={<Checkbox />} label="Acepto las condiciones" />
+            </Box>
+
+
+            <Box sx={{ display: 'flex', justifyContent: 'right', mt: 2 }}>
+                <PdfDownloadComponent 
+                    pdfUrl={pdf}
+                    fileName="formulario.pdf"
+                />
+            </Box>
+
             <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
-                <Button variant="contained" color="primary" type="submit" sx={{ width: '120px' }}>
+                <Button variant="contained" color="primary" type="submit" sx={{ width: '120px' }} endIcon={<SendIcon />}>
                     Enviar
                 </Button>
             </Box>

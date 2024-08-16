@@ -49,7 +49,12 @@ function App() {
 
   // Controlador de eventos para cambio en el formulario, manda al usuario al inicio del sistema
   const handleReturnHome = () => {
-    setFormActual('');
+    if (formActual === 'educacion' || formActual === 'taller Docente' || formActual === 'taller Comunidad') {
+      setFormActual('');
+    } else {
+      window.location.href = '../ConectarLab.html';  
+    }
+    
   };
 
   return (

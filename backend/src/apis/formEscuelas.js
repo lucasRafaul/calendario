@@ -59,7 +59,18 @@ export async function getFechasOcupadas() {
     }
 }
 
+export async function getCue() {
+    try {
+        const [rows] = await db.execute("SELECT * FROM bdcue");
+        return rows;
+    } catch (error) {
+        console.error('Error fetching CUE data:', error);
+        throw new Error('Error fetching CUE data');
+    }
+}
+
 
 
  export const Escuela = await GetEscuela()
  export const Horarios = await GetHorarios()
+ export const Cue = await getCue()

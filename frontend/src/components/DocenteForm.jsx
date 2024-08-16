@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Box, Grid, Typography, IconButton } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios';
 
 const DocenteForm = ({talleres}) => {
@@ -50,6 +51,8 @@ const DocenteForm = ({talleres}) => {
     setIndex((prevIndex) => (prevIndex < talleres.length - 1 ? prevIndex + 1 : 0));
   };
 
+  const tallerActual = talleres[index];
+
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
         <Box sx={{ mb: 4, textAlign: 'center' }}>
@@ -71,14 +74,14 @@ const DocenteForm = ({talleres}) => {
               fontSize: '1.5rem', 
             }}
           >
-            {talleres[index].titulo}
+            {tallerActual.titulo}
           </Typography>
-          {talleres[index].imagen && (
+          {tallerActual.imagen && (
                       <CardMedia
                       component="img"
-                      alt={talleres[index].titulo}
-                      image={talleres[index].imagen}
-                      title={talleres[index].titulo}
+                      alt={tallerActual.titulo}
+                      image={tallerActual.imagen}
+                      title={tallerActual.titulo}
                       sx={{ 
                         display: 'block', 
                         margin: '0 auto', 
@@ -89,6 +92,15 @@ const DocenteForm = ({talleres}) => {
                     />
           )}
         </Box>
+
+        <Grid item xs={12}>
+          <TextField
+            fullWidth
+            value={tallerActual.fecha}  
+            disabled
+            sx={{ mb: 2 }}
+          />
+        </Grid>
         
       <Grid container spacing={2}>
         <Grid item xs={12}>
@@ -158,6 +170,7 @@ const DocenteForm = ({talleres}) => {
           color="primary" 
           type="submit" 
           sx={{ minWidth: '120px' }}
+          endIcon={<SendIcon />}
         >
           Enviar
         </Button>

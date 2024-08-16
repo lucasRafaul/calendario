@@ -1,7 +1,7 @@
 // Importación de módulos necesarios
 import express from 'express';
 import cors from 'cors';
-import { Escuela, Horarios, PostTurno, horarioDisponible, getHorariosOcupados, getFechasOcupadas } from './apis/formEscuelas.js';
+import { Escuela, Horarios, PostTurno, horarioDisponible, getHorariosOcupados, getFechasOcupadas, getCue } from './apis/formEscuelas.js';
 import { PostTurnoComunidad, getComunidadData } from './apis/formComunidad.js';
 import {  PostTurnoDocente, getDocenteData } from './apis/formDocente.js';
 
@@ -112,6 +112,16 @@ app.get('/docente_data', async (req, res) => {
   } catch (error) {
       console.error('Error fetching docente data:', error);
       res.status(500).json({ error: "Error fetching docente data" });
+  }
+});
+
+app.get('/api/cue', async (req, res) => {
+  try {
+      const cueData = await getCue();
+      res.json(cueData);
+  } catch (error) {
+      console.error('Error fetching CUE data:', error);
+      res.status(500).json({ error: 'Error fetching CUE data' });
   }
 });
 

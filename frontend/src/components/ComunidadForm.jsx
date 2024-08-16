@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { TextField, Button, Box, Grid, Typography, CardMedia, IconButton } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import SendIcon from '@mui/icons-material/Send';
 import axios from 'axios';
 
 const ComunidadForm = ({talleres}) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [index, setIndex] = useState(0);
   const [formData, setFormData] = useState({
     nombreApellido: '',
     edad: '',
@@ -27,8 +28,8 @@ const ComunidadForm = ({talleres}) => {
     e.preventDefault();
     try {
       await axios.post("http://localhost:3000/post/comunidad", {
-        ...formData, tallerTitulo: talleres[currentIndex].titulo,
-        tallerFecha: talleres[currentIndex].fecha,
+        ...formData, tallerTitulo: talleres[index].titulo,
+        tallerFecha: talleres[index].fecha,
       });
       alert('El turno se agregó');
       setFormData({
@@ -46,14 +47,14 @@ const ComunidadForm = ({talleres}) => {
   };
 
   const handlePrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : talleres.length - 1));
+    setIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : talleres.length - 1));
   };
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex < talleres.length - 1 ? prevIndex + 1 : 0));
+    setIndex((prevIndex) => (prevIndex < talleres.length - 1 ? prevIndex + 1 : 0));
   };
 
-  const currentTaller = talleres[currentIndex];
+  const tallerActual = talleres[index];
 
   return (
     <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
@@ -76,14 +77,14 @@ const ComunidadForm = ({talleres}) => {
               fontSize: '1.5rem',
             }}
           >
-            {currentTaller.titulo}
+            {tallerActual.titulo}
           </Typography>
-          {currentTaller.imagen && (
+          {tallerActual.imagen && (
                       <CardMedia
                       component="img"
-                      alt={currentTaller.titulo}
-                      image={currentTaller.imagen}
-                      title={currentTaller.titulo}
+                      alt={tallerActual.titulo}
+                      image={tallerActual.imagen}
+                      title={tallerActual.titulo}
                       sx={{ 
                         display: 'block', 
                         margin: '0 auto', 
@@ -98,7 +99,7 @@ const ComunidadForm = ({talleres}) => {
         <Grid item xs={12}>
           <TextField
             fullWidth
-            value={currentTaller.fecha}  
+            value={tallerActual.fecha}  
             disabled
             sx={{ mb: 2 }}
           />
@@ -186,6 +187,7 @@ const ComunidadForm = ({talleres}) => {
           color="primary" 
           type="submit" 
           sx={{ minWidth: '120px' }}
+          endIcon={<SendIcon />}
         >
           Enviar
         </Button>
