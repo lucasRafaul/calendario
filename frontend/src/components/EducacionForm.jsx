@@ -3,7 +3,6 @@ import { TextField, Button, Box, FormControl, InputLabel, Select, MenuItem, Chec
 import SendIcon from '@mui/icons-material/Send';
 import Calendario from './Calendario';
 import Horario from './Horario';
-import pdf from '/ejemplopdf.pdf';
 import PdfDownloadComponent from './Pdf';
 import axios from 'axios';
 
@@ -326,7 +325,7 @@ const EducacionForm = () => {
 
             <Box sx={{ display: 'flex', justifyContent: 'right', mt: 2 }}>
                 <PdfDownloadComponent 
-                    pdfUrl={pdf}
+                    pdfUrl={'./PAUTAS GENERALES para USO de INSTALACIONES Y RECURSOS ConectarLAB Chaco (MODIF.).docx.pdf'}
                     fileName="formulario.pdf"
                 />
             </Box>

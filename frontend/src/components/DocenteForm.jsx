@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { TextField, Button, Box, Grid, Typography, IconButton } from '@mui/material';
+import { TextField, Button, Box, Grid, Typography, IconButton, CardMedia } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import SendIcon from '@mui/icons-material/Send';

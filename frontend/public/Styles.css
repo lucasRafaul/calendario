@@ -1,0 +1,803 @@
+.section{
+    padding: 20px 10px;
+    margin: 20px 0;
+}
+
+/*Barra de Navegacion*/
+/*BARRA DE NAVEGACION*/
+#barradenavegacion {
+    background-color: #082140;
+    top: 0;
+    width: 100%;
+    position: fixed; 
+    z-index: 1000;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+}
+
+.navbar-brand img {
+    margin-right: 0.5rem;
+    height: 45px;
+    width: auto;
+    transition: all 0.3s;
+}
+
+.navbar-nav .nav-link {
+    font-family: 'Kubic', sans-serif;
+}
+
+.btn-light {
+    color: #fffefe;
+}
+
+.btn-outline-secondary {
+    color: #C7A1EB;
+    border-color: #C7A1EB;
+    margin-left: 8px;
+    align-items: center;
+}
+
+img, svg {
+    height: auto;
+}
+
+/* Media Queries para pantallas pequeñas */
+@media (max-width: 768px) {
+    .navbar-brand {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px 0;
+    }
+
+    .navbar-brand img {
+        height: 35px; /* Ajusta el tamaño del logo */
+        margin-bottom: 10px; /* Añade un margen debajo del logo */
+    }
+
+    .navbar-nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .navbar-nav .nav-link {
+        padding: 10px; /* Añade espacio alrededor de los elementos del menú */
+        width: 100%; /* Asegúrate de que los elementos del menú ocupen todo el ancho */
+        text-align: center; /* Centra el texto del menú */
+    }
+}
+
+
+/*CARRUSEL*/
+.seccion-carrusel-inicio{
+    margin: 0;
+    font-family: 'Kubic', sans-serif;
+    background-color: #0d1b2a;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+    background: url('/frontend/src/assets/img/Hero_Section_1.png') no-repeat center center/cover;
+    background-attachment: fixed; 
+    margin: 0 0 5px;
+}
+
+.carousel-inicio{
+    position: relative;
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.carousel-inicio .carousel-container{
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+}
+
+.carousel-inicio .carousel-slide{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.text-section{
+    max-width: 40%;
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.text-section h3 {
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 10px;
+}
+
+.text-section h4 {
+    font-size: 36px;
+    margin: 0;
+}
+
+.text-section p {
+    margin: 20px 0;
+    line-height: 1.5;
+}
+
+.text-section button {
+    background-color: #7c4dff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+.text-section button:hover {
+    background-color: #5e35b1;
+}
+
+.image-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.image-section img{
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.carousel-inicio .carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.prev-inicio {
+    left: 10px;
+}
+
+.next-inicio {
+    right: 10px;
+}
+
+/* Media Queries para hacerlo responsive */
+@media (max-width: 768px) {
+    .carousel-container .container{
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .text-section {
+        max-width: 100%;
+        margin: 0;
+    }
+
+    .image-section {
+        width: 100%;
+    }
+
+    .image-section img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .seccion-carrusel-inicio {
+        background-position: center center;
+        background-size: cover;
+    }
+}
+
+@media (max-width: 460px) {
+    .text-section h2 {
+        font-size: 28px;
+    }
+
+    .text-section p {
+        font-size: 14px;
+    }
+
+    .text-section button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .seccion-carrusel-inicio {
+        background-position: center center;
+        background-size: cover;
+        height: 100vh;
+    }
+}
+
+
+/*PASOS PARA LA RESERVA*/
+.process-section section {
+    padding: 20px 10px; /* Ajusta según sea necesario */
+    margin: 20px 0;     /* Ajusta según sea necesario */
+}
+
+.process-section{
+    font-family: 'Kubic', sans-serif;
+    background-color: #f8f9fa;
+    display: flex;
+    justify-content: center;
+}
+
+.containerpasos{
+    max-width: 1200px;
+    margin: 10px;
+    padding: 8px 0 0;
+}
+
+.filapasos{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.col-md-3{
+    flex: 1 1 23%;
+    box-sizing: border-box;
+    min-width: 200px;
+}
+
+.process-step{
+    background-color: #fff;
+    padding: 20px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    position: relative;
+    margin-bottom: 20px;
+    min-width: 200px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+.process-icon-container{
+    position:relative;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.process-icon-container img{
+    width: 80%;
+    height: 100%;
+    overflow: hidden;
+}
+
+
+.process-step h4 {
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+.process-step p {
+    color: #666;
+}
+
+
+/*SECCION RECORRIDO VIRTUAL*/
+#virtual{
+    padding: 10px 10px;
+    margin: 30px 10px;
+    background-color: #06213E;
+    font-family: 'Kubic', sans-serif;
+}
+
+.virtual-content {
+    padding: 60px 40px; /* Ajusta según sea necesario */
+    margin: 50px 0;     /* Ajusta según sea necesario */
+}
+
+.virtual-content h2{
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff;
+}
+
+.virtual-content h3{
+    font-size: 24px;
+    color: #fff;
+}
+
+/*Lista del recorrido*/
+.feature-list{
+    list-style: none;
+    padding:0;
+    color: #fff;
+}
+
+/*Etiquetas li de la lista*/
+.feature-list li{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+/*Iconos de la lista*/
+.feature-list li i{
+    color:#379785;
+    margin-right: 20px;
+    font-size: 20px;
+}
+
+/*Parrafo de la lista*/
+.feature-list li span{
+    display: flex;
+    align-items: center;
+}
+
+.feature-list li div {
+    margin-left: 30px; 
+}
+
+/*Imagen del laboratorio*/
+.virtual-image{
+    position: relative;
+    margin: 15%;
+}
+
+/*Contenedor de informacion adicional*/
+.virtual-overlay{
+    position:absolute;
+    top:75%;
+    left:25%;
+    transform: translate(-50%, -50%);
+    background-color: #9B51E0;
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+    color:#ffffff;
+}
+
+.overlay-icon{
+    font-size: 48px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+
+
+/*CARRUSEL LABORATORIO*/
+.lab-section{
+    margin: 40px;
+    padding: 10px 5px; 
+    position: relative;
+    font-family: 'Kubic', sans-serif;
+}
+
+.carousel-lab{
+    position: relative;
+}
+
+.carousel-lab .card {
+    border-radius: 10px;
+    border: 1px solid #E1E9F8;
+    transition: transform 0.3s;
+    background-color: #F9FAFC;
+    padding: 10px; 
+    margin: 20px; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    width: 90%;
+}
+
+.carousel-lab .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80%;
+}
+
+.additional-info {
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+}
+
+.card-active .additional-info{
+    display: block;
+    bottom: 0;
+}
+
+.carousel-lab .card:hover {
+    transform: translateY(-5px);
+}
+
+.carousel-lab .card-img-top {
+    width: 80%; 
+    height: 100%; 
+    object-fit: cover;
+    justify-content: center;
+}
+
+.carousel-lab .carousel-control-prev,
+.carousel-lab .carousel-control-next {
+    width: auto;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    height: 100%;
+    z-index: 1;
+    background-color: transparent;
+}
+
+/* Media Queries para pantallas medianas (hasta 760px) */
+@media (max-width: 760px) {
+    .lab-section {
+        margin: 15px; 
+    }
+
+    .carousel-lab .card {
+        padding: 10px;
+        margin-top: 3%; 
+        width: 95%; 
+    }
+
+    .carousel-lab .card-img-top {
+        width: 100%; 
+        max-width: 100%; 
+        height: auto; 
+    }
+
+    .carousel-lab .carousel-control-prev {
+        left: 15px; 
+    }
+
+    .carousel-lab .carousel-control-next {
+        right: 15px;
+    }
+
+    .carousel-lab .carousel-control-prev,
+    .carousel-lab .carousel-control-next {
+        display: flex; 
+        align-items: center; /* Alineación central */
+        justify-content: center;
+    }
+}
+
+/* Media Queries para pantallas pequeñas (hasta 480px) */
+@media (max-width: 480px) {
+    .lab-section {
+        margin: 10px; 
+    }
+
+    .carousel-lab .card {
+        padding: 8px; 
+        margin-top: 5%;
+        width: 100%; 
+    }
+
+    .carousel-lab .card-img-top {
+        width: 100%; 
+        max-width: 100%; 
+        height: auto; 
+    }
+
+    .carousel-lab .carousel-control-prev,
+    .carousel-lab .carousel-control-next {
+        display: flex; 
+        align-items: center;
+        justify-content: center;
+    }
+
+}
+
+
+
+.carousel-lab .carousel-control-prev {
+    left: -20px; 
+}
+
+.carousel-lab .carousel-control-next {
+    right: -20px;
+}
+
+.carousel-lab .carousel-control-prev-icon,
+.carousel-lab .carousel-control-next-icon {
+    border-radius: 50%;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    display: flex; 
+    justify-content: center; 
+}
+
+
+#labCarousel .carousel-lab .carousel-inner {
+position: relative;
+width: 100%;
+}
+
+.carousel-lab .texto-laboratorio p {
+font-size: 20px;
+margin-bottom: 1.5rem ;
+color: #38393E ;
+justify-content: center;
+}
+
+.carousel-lab .carru p{
+font-size: 15px;
+margin-bottom: 1.5rem;
+color: #38393E ;
+}
+
+
+
+/*ESTILOS DE COMENTARIOS*/
+#comentarios{
+    padding: 20px 10px;
+    margin: 10px;
+}
+
+.comentario-mariano {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #C2D1D9;
+    font-family: 'Kubic', sans-serif;
+}
+
+.comentario-mariano .slide-container{
+    max-width: 1000px;
+    width: 100%;
+    padding: 20px 0;
+}
+
+.titulocomentario{
+    margin-bottom: 5%;
+}
+
+.comentario-mariano .slide-content{
+    margin: 0 40px;
+    overflow: hidden;
+    border-radius: 25px;
+}
+
+.comentario-mariano .card{
+    border-radius: 25px;
+    background-color: #fff;
+    min-height: 150px; /* Establece una altura mínima para todas las tarjetas */
+    height:auto; /* Las tarjetas crecerán según el contenido */
+}
+
+
+.comentario-mariano .image-content,
+.comentario-mariano .card-content{
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 10px 14px;
+}
+
+.comentario-mariano .image-content{
+    position: relative;
+    row-gap: 5px;
+    padding: 20px 0;
+}
+
+.comentario-mariano .overlay{
+    position:absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    border-radius: 25px 25px 90px 90px;
+}
+
+.comentario-mariano .overlay::before,
+.comentario-mariano .overlay::after{
+content: '';
+position: absolute;
+right: 0;
+bottom: -40px;
+height: 40px;
+width: 40px;
+}
+
+.comentario-mariano .overlay::after{
+    border-radius: 0 0 0 0;
+    background-color: #FFF;
+}
+
+.comentario-mariano .name{
+    font-size: 18px;
+    font-weight: 500;
+    color: #333;
+}
+
+.comentario-mariano .description{
+    font-size: 14px;
+    color: #707070;
+    text-align: center;
+}
+
+.comentario-mariano .button{
+    border:none;
+    font-size: 16px;
+    color:#fff;
+    padding: 8px 16px;
+    border-radius: 6px;
+    margin: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.comentario-mariano .swiper-navBtn{
+    color: #fff;
+    transition: color 0.3s ease;
+}
+
+.comentario-mariano .swiper-navBtn:hover{
+    color: #EE3D8F;
+}
+
+.comentario-mariano .swiper-button-next{
+    right: 0;
+}
+
+.comentario-mariano .swiper-button-prev{
+    left: 0;
+}
+
+.comentario-mariano .swiper-pagination-bullet{
+    background-color: #FFFFFF;
+    opacity: 1;
+}
+
+.comentario-mariano .swiper-pagination-bullet-active{
+    background-color:#424B5A;
+    ;
+}
+
+
+
+
+/*ESTILOS DEL FOOTER*/
+.footer{
+    background-color: #fff;
+    color: black;
+    padding: 60px 0 0;
+    font-family: 'Kubic', sans-serif;
+}
+
+
+/*Etiquetas h5 del footer*/
+.footer h5{ 
+    font-size: 18px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.footer p{
+    margin-bottom: 15px;
+}
+
+.footer a{
+    color: black;
+    text-decoration: none;
+}
+
+.footer a:hover{
+    color: #ccc;
+}
+
+/*Iconos de redes sociales*/
+.social-icons a{
+    display: inline-block;
+    color: #EE3D8F;
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.footer ul{
+    padding: 0;
+}
+
+.footer ul li{
+    margin-bottom: 10px;
+}
+
+.btn-primary{
+    background-color: #9B51E0;
+    border-color: #9B51E0;
+    border: none;
+}
+
+.col-md-12 a{
+    color: #fff;
+    margin-right: 1px;
+}
+
+.col-md-12 p{
+    color: #fff;
+}
+
+/*Parte inferior del footer*/
+.footer-bottom{
+    background-color: #06213E;
+    padding-bottom: 0;
+    margin-top:30px;
+}
+
+/*Contenedor de los logos*/
+.container-logos{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo_container img{
+    height: 60px;
+    margin: 30px;
+}
+
+/*Texto final*/
+.finaltext{
+    background-color: #04080C;
+    padding: 20px;
+    margin-top: 30px;
+    margin-bottom: 0;
+    width: 100%;
+    justify-content: space-between;
+    display:flex;
+}
+
+.izquierda{
+    left: 0;
+}
+
+.derecha{
+    right: 0;
+}
+
+
+
+
+

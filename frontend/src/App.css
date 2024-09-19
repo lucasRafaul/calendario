@@ -1,5 +1,62 @@
-body{
-    align-items: center;
-    text-align: center;
-    font-family: "Times New Roman", Times, serif;
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+
+:root {
+  --primary-color: #06213E;
+  --secondary-color: #8D5CF6;
+  --white-color: #FFFFFF;
+  --text-color: #FFFFFF;
+}
+
+body {
+  background-image: url("fondonuevo.jpg");
+  font-family: 'Kubic', sans-serif;
+  color: var(--text-color);
+  line-height: 1.6;
+}
+
+.form-container {
+  position: relative;
+}
+
+.form-card {
+  background-color: var(--primary-color) !important;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 600px;
+}
+
+.form-title {
+  color: var(--white-color) !important;
+  text-align: center;
+  font-family: 'Kubic', sans-serif;
+}
+
+.visit-button,
+.community-select {
+  background-color: var(--secondary-color) !important;
+  color: var(--white-color) !important;
+  font-family: 'Kubic', sans-serif;
+}
+
+.home-button {
+  position: absolute !important;
+  top: 20px;
+  left: 20px;
+  background-color: var(--secondary-color) !important;
+  color: var(--white-color) !important;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .form-card {
+    padding: 20px;
+  }
+
+  .home-button {
+    top: 10px;
+    left: 10px;
+  }
 }

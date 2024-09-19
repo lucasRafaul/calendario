@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <title>MetaLab</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Encode+Sans:wght@100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Oswald&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/frontend/src/assets/css/all.min.css">
+        <link rel="stylesheet" href="/frontend/src/assets/css/brands.min.css">
+        <link rel="stylesheet" type="text/css" href="/frontend/src/assets/css/normalize.css">
+        <link rel="stylesheet" href="Styles.css" />
+        <link rel="stylesheet" href="/frontend/src/assets/css/swiper-bundle.min.css">
+        
+    </head>
+    <body>
+        <!--Barra de Navegacion-->
+        <section id="barradenavegacion">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <div class="container">
+                    <a class="navbar-brand" href="#">
+                        <img class="logo" src="/frontend/src/assets/img/logo.png" alt="ConectarLAB" height="30">
+                    </a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ms-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#Home">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#ConectarLAB">ConectarLAB</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#virtual">360</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#ConectarLAB">Actividades</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#foot">Contacto</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link btn btn-outline-secondary" href="#">TURNOS &#128197</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </section>
+
+        
+        <section id="Home" class="seccion-carrusel-inicio">
+            <div class="carousel carousel-inicio">
+                <div class="carousel-container">
+                    
+                    <div class="carousel-slide">
+                        <div class="container">
+                            <div class="text-section">
+                                <h3>CENTRO EDUCATIVO TECNOLOGICO</h3>
+                                <h4>CONECTAR LAB CHACO</h4>
+                                <p>Sistema de turnos, recorrido virtual<br>e información institucional</p>
+                                <button>MAS INFORMACION</button>
+                            </div>
+                            <div class="image-section">
+                                <img src="/frontend/src/assets/img/Hero_Section_img1.png" alt="Image 1">
+                            </div>
+                        </div>
+                     </div>
+                    
+                    <div class="carousel-slide">
+                        <div class="container">
+                            <div class="text-section">
+                                <h3>CENTRO EDUCATIVO TECNOLOGICO</h3>
+                                <h4>CONECTAR LAB CHACO</h4>
+                                <p>Descripción de la imagen 2.</p>
+                                <button>MAS INFORMACION</button>
+                            </div>
+                            <div class="image-section">
+                                <img src="/frontend/src/assets/img/Hero_Section_img1.png" alt="Image 2">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <div class="container">
+                            <div class="text-section">
+                                <h3>CENTRO EDUCATIVO TECNOLOGICO</h3>
+                                <h4>CONECTAR LAB CHACO</h4>
+                                <p>Descripción de la imagen 3.</p>
+                                <button>MAS INFORMACION</button>
+                            </div>
+                            <div class="image-section">
+                                <img src="/frontend/src/assets/img/Hero_Section_img1.png" alt="Image 3">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-slide">
+                        <div class="container">
+                            <div class="text-section">
+                                <h3>CENTRO EDUCATIVO TECNOLOGICO</h3>
+                                <h4>CONECTAR LAB CHACO</h4>
+                                <p>Descripción de la imagen 4.</p>
+                                <button>MAS INFORMACION</button>
+                            </div>
+                            <div class="image-section">
+                                <img src="/frontend/src/assets/img/Hero_Section_img1.png" alt="Image 4">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="carousel-button prev prev-inicio" onclick="prevSlide()">❮</button>
+                <button class="carousel-button next next-inicio" onclick="nextSlide()">❯</button>
+            </div>
+        </section>
+
+        <section id="pasos" class="process-section section">
+            <div class="containerpasos">
+                <h2 class="text-center mb-5">Pedí tu turno</h2>
+                <p class="text-center mb-5">Te explicamos paso a paso como sacar un turno para visitarnos</p>
+                <div class="process-line"></div>
+                <div class="row filapasos">
+                    <div class="col-md-3">
+                        <div class="process-step">
+                            <div class="process-icon-container">
+                                <div class="process-icon">
+                                    <img src="/frontend/src/assets/img/icono1.png" alt="Icono 1">
+                                </div>
+                            </div>
+                            <h4>Acceder a Reservas</h4>
+                            <p>Ingresa a la sección de turnos para comenzar tu reserva.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="process-step">
+                            <div class="process-icon-container">
+                                <div class="process-icon">
+                                    <img src="/frontend/src/assets/img/icono2.png" alt="Icono 2">
+                                </div>
+                            </div>
+                            <h4>Seleccionar la fecha</h4>
+                            <p>Selecciona el taller y la fecha deseados para tu experiencia.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="process-step">
+                            <div class="process-icon-container">
+                                <div class="process-icon">
+                                    <img src="/frontend/src/assets/img/icono3.png" alt="Icono 3">
+                                </div>
+                            </div>
+                            <h4>Completar los datos</h4>
+                            <p>Completa los datos necesarios para confirmar tu reserva.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="process-step">
+                            <div class="process-icon-container">
+                                <div class="process-icon">
+                                    <img src="/frontend/src/assets/img/icono4.png" alt="Icono 4">
+                                </div>
+                            </div>
+                            <h4>Confirmar y enviar</h4>
+                            <p>Confirma y envía tu solicitud para asegurar tu lugar.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="virtual" class="recorrido-virtual">
+            <div class="container-virtual">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="virtual-content">
+                            <h2>Conoce nuestras instalaciones</h2>
+                            <h3>Recorrido Virtual 360°</h3>
+                            <ul class="feature-list">
+                                <li>
+                                    <span><i class="fas fa-check-circle"></i>Interactivas Avanzadas</span>
+                                    <div>
+                                        <p>Nuevos elementos interactivos, texto, video, audio, galeria de imagenes.</p>
+                                    </div>
+                                </li>
+                                <li>
+                                    <span><i class="fas fa-check-circle"></i>Pantallas en Movimiento y Chromas</span>
+                                    <div>
+                                        <p>Interactúa con ConectarLAB de una forma distinta y novedosa.</p>
+                                    </div>
+                                </li>
+                            </ul>
+                            <a href="#" class="btn btn-primary">
+                            Recorrer <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="virtual-image">
+                            <img src="/frontend/src/assets/img/img_lab.png" alt="Recorrido Virtual 360°" class="img-fluid">
+                            <div class="virtual-overlay">
+                                <div class="overlay-content">
+                                    <span class="overlay-icon">+6</span>
+                                    <div class="overlay-text">
+                                        <p>Laboratorios para explorar.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="ConectarLAB" class="lab-section">
+            <div class="containerlab">
+              <div class="texto-laboratorio">
+                <h2 class="text-center mb-4">Laboratorios</h2>
+                <p class="text-center mb-4">Descubre cómo nuestros laboratorios están impulsando el avance científico y tecnológico.</p>
+              </div>
+              <div id="labCarousel" class="carousel slide carousel-lab" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active carru">
+                    <div class="row">
+                      <div class="col-md-4 mb-3">
+                        <div class="card">
+                          <img class="card-img-top" src="/frontend/src/assets/img/laboratorios/Image-1.png" alt="Sonido">
+                          <div class="card-body">
+                            <h3 class="card-title">Estudio y Sonido</h3>
+                            <p class="card-text">Explora el Mundo Del Sonido</p>
+                            <p class="card-text">Explora el sonido en nuestro laboratorio especializado en audio.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <div class="card">
+                          <img class="card-img-top" src="/frontend/src/assets/img/laboratorios/Image-2.png" alt="Ciencias">
+                          <div class="card-body">
+                            <h3 class="card-title">Ciencias</h3>
+                            <p class="card-text">Descubre la ciencia en acción</p>
+                            <p class="card-text">Experimenta y descubre en nuestro laboratorio de ciencias de vanguardia.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <div class="card">
+                          <img class="card-img-top" src="/frontend/src/assets/img/laboratorios/Image.png" alt="Fabricación">
+                          <div class="card-body">
+                            <h3 class="card-title">Fabricación</h3>
+                            <p class="card-text">Crea con Tecnología de Punta</p>
+                            <p class="card-text">Crea innovación con tecnologías en nuestro laboratorio de fabricación.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="carousel-item carru">
+                    <div class="row">
+                      <div class="col-md-4 mb-3">
+                        <div class="card">
+                          <img class="card-img-top" src="/frontend/src/assets/img/laboratorios/Image.png" alt="Fabricación">
+                          <div class="card-body">
+                            <h3 class="card-title">Fabricación</h3>
+                            <p class="card-text">Crea con Tecnología de Punta</p>
+                            <p class="card-text">Crea innovación con tecnologías en nuestro laboratorio de fabricación.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <div class="card">
+                          <img class="card-img-top" src="/frontend/src/assets/img/laboratorios/Image-1.png" alt="Minilab">
+                          <div class="card-body">
+                            <h3 class="card-title">Minilab</h3>
+                            <p class="card-text">Descubre la ciencia en acción</p>
+                            <p class="card-text">Experimenta y descubre en nuestro laboratorio de ciencias de vanguardia.</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-4 mb-3">
+                        <div class="card">
+                          <img class="card-img-top" src="/frontend/src/assets/img/laboratorios/Image.png" alt="Fabricación">
+                          <div class="card-body">
+                            <h3 class="card-title">Multimedia</h3>
+                            <p class="card-text">Crea con Tecnología de Punta</p>
+                            <p class="card-text">Crea innovación con tecnologías en nuestro laboratorio de fabricación.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <button class="carousel-control-prev prev-lab" type="button" data-bs-target="#labCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                  </button>
+                  <button class="carousel-control-next next-lab" type="button" data-bs-target="#labCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                  </button>
+                </div>
+              </div>
+
+        </section>
+
+        <section id="comentarios" class="comentario-mariano section">
+            <div class="slide-container swiper">
+                <h2 class="text-center titulocomentario">Por qué amamos ConectarLab</h2>
+                <div class="slide-content">
+                    <div class="card-wrapper swiper-wrapper">
+                        <div class="card swiper-slide">
+                            <div class="image-content">
+                                <span class="overlay" id="overlay-1"></span>
+                            </div>
+
+                            <div class="card-content">
+                                <h4 class="name">Sean Farmer 1</h4>
+                                <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque deserunt minus fuga labore optio vero commodi similique quo non omnis, maiores perferendis suscipit dolorum quod quis, doloribus dolores mollitia earum?</p>
+                            </div>
+                        </div>
+                        <div class="card swiper-slide">
+                            <div class="image-content">
+                                <span class="overlay" id="overlay-2"></span>
+                            </div>
+
+                            <div class="card-content">
+                                <h4 class="name">Sean Farmer 2</h4>
+                                <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi earum explicabo quidem soluta ab perferendis officiis quo accusantium consectetur, sint atque quae reprehenderit aspernatur doloribus, quam quod quibusdam temporibus neque.</p>
+                            </div>
+                        </div>
+                        <div class="card swiper-slide">
+                            <div class="image-content">
+                                <span class="overlay" id="overlay-3"></span>
+                            </div>
+
+                            <div class="card-content">
+                                <h4 class="name">Sean Farmer 3</h4>
+                                <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Laboriosam ipsa quae architecto. Velit sed error dicta earum, dolore quasi odio reiciendis dolor perferendis, libero in? Minus expedita officiis sequi modi.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="card swiper-slide">
+                            <div class="image-content">
+                                <span class="overlay" id="overlay-4"></span>
+
+                            </div>
+
+                            <div class="card-content">
+                                <h4 class="name">Sean Farmer 4</h4>
+                                <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt reprehenderit sequi optio officiis iusto laboriosam voluptatem obcaecati, et enim dolorum, illo repellendus, eum labore quibusdam! Nostrum sed eaque amet recusandae!</p>
+
+                            </div>
+                        </div>
+                        <div class="card swiper-slide">
+                            <div class="image-content">
+                                <span class="overlay" id="overlay-5"></span>
+
+                            
+                            </div>
+
+                            <div class="card-content">
+                                <h4 class="name">Sean Farmer 5</h4>
+                                <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Temporibus beatae nulla error itaque eum! Ipsa voluptatum cum suscipit. Facilis, possimus veniam? Minima aliquam possimus, dolorum sint enim beatae quo sit!</p>
+
+                            </div>
+                        </div>
+                        <div class="card swiper-slide">
+                            <div class="image-content">
+                                <span class="overlay" id="overlay-6"></span>
+
+                            </div>
+
+                            <div class="card-content">
+                                <h4 class="name">Sean Farmer 6</h4>
+                                <p class="description">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Et atque obcaecati quidem autem, beatae necessitatibus culpa ipsa assumenda magni voluptatibus. Voluptatem laboriosam iusto expedita eius blanditiis.</p>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="swiper-button-next swiper-navBtn"></div>
+                <div class="swiper-button-prev swiper-navBtn"></div>
+                <div class="swiper-pagination"></div>
+            </div>
+        </section>
+             <!--Seccion del pie de pagina-->
+        <section id="foot">
+            <footer class="footer">
+                <div class="container">
+                    <div class="row">
+                        <!--Columna de informacion que contiene formas de contacto y redes sociales-->
+                        <div class="col-md-4">
+                            <h5>Donde visitarnos?</h5>
+                            <!--Parrafo que contiene correo electronico-->
+                            <p>Reserva tu turno en <a href="mailto:conectarlab@sitechaco.edu.ar">conectarlab@sitechaco.edu.ar</a> Para obtener mas informacion del proyecto.</p>
+                            <p><i class="num-contacto"></i> +54 3625175481</p>
+                            <!--Iconos de redes sociales - Al hacer clic redirige a las paginas del ConectarLAB-->
+                            <div class="social-icons">
+                                <a href="https://www.facebook.com/profile.php?id=100083376645313&locale=es_LA"><i class="fab fa-facebook-f"></i></a>
+                                <a href="https://www.instagram.com/conectarlabchaco/"><i class="fab fa-instagram"></i></a>
+                                <a href="https://x.com/conectar_LAB"><i class="fab fa-twitter"></i></a>
+                                <a href="https://www.youtube.com/channel/UCJHhJBtk8jtfIQ5B1H7iyVw"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                        <!--Columna de enlaces que redirige a partes de la pagina-->
+                        <div class="col-md-6 offset-md-2">
+                            <h5>Sobre Nosotros</h5>
+                            <ul class="list-unstyled">
+                                <li><a href="#pasos">Reservas</a></li>
+                                <li><a href="#">ConectarLab</a></li>
+                                <li><a href="#virtual">360</a></li>
+                                <li><a href="#ConectarLAB">Actividades</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <!--Parte inferior del footer-->
+                <div class="footer-bottom">
+                    <!--Container que contiene los logos-->
+                    <div class="container-logos">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="logo_container">
+                                    <!--Imagenes de los logos-->
+                                    <img src="/frontend/src/assets/img/logos/Logo Chaco.png" alt="Logo Chaco">
+                                    <img src="/frontend/src/assets/img/logos/Logo educar.png" alt="Logo Educar">
+                                    <img src="/frontend/src/assets/img/logos/Logo Fontana.png" alt="Logo Fontana">
+                                    <img src="/frontend/src/assets/img/logos/Logo Ministerio.png" alt="Logo Ministerio">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Columna final con derechos de autor-->
+                    <div class="col-md-12  finaltext">
+                        <div class="izquierda">
+                        <p>Copyright &copy; 2024 ConectarLab | Design by IESETyFP</p>
+                        </div>
+                        <div class="derecha">
+                        <!--Enlaces que dirigen a los terminos y condiciones y politica de privacidad-->
+                        <p><a href="#">Terminos y Condiciones</a> | <a href="#">Política de Privacidad</a></p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </section>
+
+ 
+
+
+
+           <!-- Swiper JS -->
+           <script src="/frontend/src/assets/js/swiper-bundle.minmariano.js"></script>
+           <!-- JavaScript -->
+           <script src="/frontend/src/assets/js/scriptmariano.js"></script>
+           <!-- Enlace al archivo JavaScript carrusel-->
+           <script src="/frontend/src/assets/js/scriptseve.js"></script>
+           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+           <script src="/frontend/src/assets/js/fontawesome.js"></script>
+    </body>

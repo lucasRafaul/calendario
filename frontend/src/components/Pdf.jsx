@@ -14,6 +14,7 @@ const PdfDownloadComponent = ({ pdfUrl, fileName }) => {
       const response = await fetch(pdfUrl);
       const blob = await response.blob();
       saveAs(blob, fileName);
+      // window.open("./ejemplopdf.pdf")
     } catch (error) {
       console.error('Error al descargar el pdf:', error);
       alert('Error al descargar el pdf, intente otra vez');
